@@ -14,3 +14,6 @@ run:
 	@make
 	@fuse --tape program.tap -g 4x & disown
 
+clean-run:
+	@make clean
+	@make run
