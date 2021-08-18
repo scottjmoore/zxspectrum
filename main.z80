@@ -30,6 +30,15 @@ Start:
 PrintString:
     push hl
     call PrintStringLoop
+    ld hl,Message+3
+    ld a,(hl)
+    inc a
+    and %111
+    cp 0
+    jp nz,ColorOkay
+    ld a,1
+ColorOkay:
+    ld (hl),a
     pop hl
     ret
 
