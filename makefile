@@ -14,6 +14,10 @@ run:
 	@make
 	@fuse --tape program.tap -g 4x & disown
 
+run-retroarch:
+	@make
+	@retroarch -D -L /usr/lib64/libretro/fuse_libretro.so ./program.tap & disown
+
 clean-run:
 	@make clean
 	@make run
