@@ -1,0 +1,46 @@
+{
+    "version": "0.1.0",
+    "command": "bash",
+    "isShellCommand": true,
+    "showOutput": "always",
+    "options": {
+        "cwd": "${workspaceRoot}"
+    },
+	"args": [
+        "-c"
+    ],
+    "tasks": [
+        {
+            "taskName": "build",
+            "suppressTaskName": true,
+            "isBuildCommand": true,
+            "args": [
+                "make"
+            ],
+            "problemMatcher": [],
+            //"label": "build"
+        },
+        {
+            "taskName": "clean",
+            "suppressTaskName": true,
+            "isTestCommand": true,
+            "args": [
+                "make clean"
+            ]
+        },
+        {
+            "taskName": "run",
+            "suppressTaskName": true,
+            "args": [
+                "make && fuse --tape program.tap -g 4x"
+            ]
+        },
+        {
+            "taskName": "retroarch",
+            "suppressTaskName": true,
+            "args": [
+                "make && retroarch -D -L /usr/lib64/libretro/fuse_libretro.so ./program.tap"
+            ]
+        }
+    ]
+}
