@@ -30,7 +30,7 @@ Start:
 PrintString:
     push hl
     call PrintStringLoop
-    ld hl,Message+3
+    ld hl,Part2+1
     ld a,(hl)
     inc a
     and %111
@@ -51,8 +51,12 @@ PrintStringLoop:
     jr PrintStringLoop
 
 Message:
+Part1:
     db $10,$05,$11,$01,'Hello>'
+Part2:
     db $10,$01,$11,$05,'<World!'
-    db $10,$02,$11,$04,"This is more text..",13,0
+Part3:
+    db $10,$02,$11,$04,"This is more text.."
+    db 13,0
 
 ROM_CLS     equ $0daf
