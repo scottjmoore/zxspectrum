@@ -24,6 +24,7 @@ Start:
     call PrintString
     call PrintString
     call PrintString
+    call PrintString
     jp Start
 
 PrintString:
@@ -40,7 +41,7 @@ PrintStringLoop:
     push hl
     rst $10
     pop hl
-    jr PrintString
+    jr PrintStringLoop
 
 Message:
     db $10,$05,$11,$01,'Hello>'
