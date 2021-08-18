@@ -1,46 +1,36 @@
 {
-    "version": "0.1.0",
-    "command": "bash",
-    "isShellCommand": true,
-    "showOutput": "always",
-    "options": {
-        "cwd": "${workspaceRoot}"
-    },
-	"args": [
-        "-c"
-    ],
+    "version": "2.0.0",
     "tasks": [
         {
-            "taskName": "build",
-            "suppressTaskName": true,
-            "isBuildCommand": true,
-            "args": [
-                "make"
-            ],
-            "problemMatcher": [],
-            //"label": "build"
+            "label": "build",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "type": "shell",
+            "command": "make",
+            "problemMatcher": []
         },
         {
-            "taskName": "clean",
-            "suppressTaskName": true,
-            "isTestCommand": true,
-            "args": [
-                "make clean"
-            ]
+            "label": "clean",
+            "group": "build",
+            "type": "shell",
+            "command": "make clean"
         },
         {
-            "taskName": "run",
-            "suppressTaskName": true,
-            "args": [
-                "make && fuse --tape program.tap -g 4x"
-            ]
+            "label": "run",
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            },
+            "type": "shell",
+            "command": "make && fuse --tape program.tap -g 4x"
         },
         {
-            "taskName": "retroarch",
-            "suppressTaskName": true,
-            "args": [
-                "make && retroarch -D -L /usr/lib64/libretro/fuse_libretro.so ./program.tap"
-            ]
+            "label": "retroarch",
+            "group": "test",
+            "type": "shell",
+            "command": "make && retroarch -D -L /usr/lib64/libretro/fuse_libretro.so ./program.tap"
         }
     ]
 }
