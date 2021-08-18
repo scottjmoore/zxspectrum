@@ -1,0 +1,35 @@
+    org $8000
+
+Start:
+    call ROM_CLS
+    ld hl,Message
+    call PrintString
+    ld hl,Message
+    call PrintString
+    ld hl,Message
+    call PrintString
+    ld hl,Message
+    call PrintString
+    ld hl,Message
+    call PrintString
+    ld hl,Message
+    call PrintString
+    ld hl,Message
+    call PrintString
+    ret
+
+PrintString:
+    ld a,(hl)
+    cp 0
+    ret z
+    inc hl
+    push hl
+    rst $10
+    pop hl
+    jr PrintString
+
+Message:
+    db $10,$05,$11,$01,'Hello>',13
+    db $10,$01,$11,$05,'<World!',13,0
+
+ROM_CLS     equ $0daf
