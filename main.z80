@@ -4,21 +4,35 @@ Start:
     call ROM_CLS
     ld hl,Message
     call PrintString
-    ld hl,Message
     call PrintString
-    ld hl,Message
     call PrintString
-    ld hl,Message
     call PrintString
-    ld hl,Message
     call PrintString
-    ld hl,Message
     call PrintString
-    ld hl,Message
     call PrintString
-    jr Start
-    
+    call PrintString
+    call PrintString
+    call PrintString
+    call PrintString
+    call PrintString
+    call PrintString
+    call PrintString
+    call PrintString
+    call PrintString
+    call PrintString
+    call PrintString
+    call PrintString
+    call PrintString
+    call PrintString
+    jp Start
+
 PrintString:
+    push hl
+    call PrintStringLoop
+    pop hl
+    ret
+
+PrintStringLoop:
     ld a,(hl)
     cp 0
     ret z
@@ -30,6 +44,7 @@ PrintString:
 
 Message:
     db $10,$05,$11,$01,'Hello>'
-    db $10,$01,$11,$05,'<World!',13,0
+    db $10,$01,$11,$05,'<World!'
+    db $10,$02,$11,$04,"This is more text.",13,0
 
 ROM_CLS     equ $0daf
