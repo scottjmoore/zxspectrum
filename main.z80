@@ -38,9 +38,7 @@ PrintStringLoop:
     cp 0
     ret z
     inc hl
-    push hl
     rst $10
-    pop hl
     jr PrintStringLoop
 
 Message:
