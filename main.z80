@@ -59,4 +59,7 @@ Part3:
     db $10,$02,$11,$04," is still awesome.."
     db 13,0
 
+TestSprite:
+    incbin build/test.bin
+
 ROM_CLS     equ $0daf
