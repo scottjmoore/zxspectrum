@@ -4,13 +4,16 @@ build/program.tap:	build/loader.tap build/main.tap
 build/loader.tap:	loader.bas
 	-@bas2tap -a10 -sloader loader.bas build/loader.tap
 
-build/main.tap:	main.z80
+build/test.bin:	sprites/test.png
+	python3 scripts/png2bin.py -i sprites/test.png -o build/test.bin -sw 24 -sh 16
+
+build/main.tap:	main.z80 build/test.bin
 	-@vasmz80_oldstyle main.z80 -z80asm -chklabels -nocase -L main.lst -Fbin -o build/main.bin
 	-@mctrd new build/main.tap
 	-@mctrd add build/main.bin build/main.tap
 
 clean:
-	-@rm -f build/*.*
+	-@rm -f build/*.bin
 	-@rm -f *.lst
 
 run:
