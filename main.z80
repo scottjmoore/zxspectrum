@@ -56,7 +56,7 @@ Part1:
 Part2:
     db $10,$01,$11,$05,'arch'
 Part3:
-    db $10,$02,$11,$04," is awesome.."
+    db $10,$02,$11,$04," is still awesome.."
     db 13,0
 
 ROM_CLS     equ $0daf
