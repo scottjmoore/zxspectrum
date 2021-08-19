@@ -24,13 +24,13 @@
                 "isDefault": true
             },
             "type": "shell",
-            "command": "make && fuse --tape program.tap -g 4x"
+            "command": "make && fuse --tape build/program.tap -g 4x"
         },
         {
             "label": "retroarch",
             "group": "test",
             "type": "shell",
-            "command": "make && retroarch -D -L /usr/lib64/libretro/fuse_libretro.so ./program.tap"
+            "command": "make && retroarch -D -L /usr/lib64/libretro/fuse_libretro.so ./build/program.tap"
         }
     ]
 }
