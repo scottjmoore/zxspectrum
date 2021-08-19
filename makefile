@@ -5,10 +5,14 @@ loader.tap:	loader.bas
 	-@bas2tap -a10 -sloader loader.bas loader.tap
 
 main.tap:	main.z80
-	-@pasmo --tap -d main.z80 main.tap
+	-@vasmz80_oldstyle main.z80 -z80asm -chklabels -nocase -L main.lst -Fbin -o main.bin
+	-@mctrd new main.tap
+	-@mctrd add main.bin main.tap
 
 clean:
 	-@rm -f *.tap
+	-@rm -f *.bin
+	-@rm -f *.lst
 
 run:
 	@make
