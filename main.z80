@@ -148,9 +148,6 @@ Start:
     jp Start
 
 DrawSprite:
-    ld a,4
-    call 8859
-    
     push hl
     push hl
     ld a,(de)
@@ -460,9 +457,6 @@ DrawSprite:
     inc de
     pop hl
     pop hl
-
-    ld a,7
-    call 8859
 
     ret
 
