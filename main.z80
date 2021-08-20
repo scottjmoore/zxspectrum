@@ -1,148 +1,257 @@
+ROM_CLS         equ $0daf
+
+SCREEN          equ $4000
+SCREENSEG0      equ $4000
+SCREENSEG1      equ $4800
+SCREENSEG2      equ $5000
+
+BUFFERWIDTH     equ 28
+BUFFERHEIGHT    equ 20
+BUFFERPAD       equ 1
+BUFFERLINESIZE  equ (BUFFERWIDTH + (BUFFERPAD << 1))
+BUFFERSIZE      equ (BUFFERLINESIZE * (BUFFERHEIGHT + (BUFFERPAD << 1)) << 3)
+BUFFERSTART     equ Buffer + BUFFERPAD + ((BUFFERLINESIZE * BUFFERPAD) << 3)
+
     org $8000
+    jp Start
+
+Buffer:
+    blk (BUFFERWIDTH + (BUFFERPAD << 1)) * (BUFFERHEIGHT + (BUFFERPAD << 1)) << 3,$55
+
+CopyBufferLine  macro
+    ld de,\1 + (\4 << 5) + (0 << 8)
+    ld hl,\2 + ((BUFFERLINESIZE * \4) << 3)
+    ld bc,\3
+    ldir
+
+    ld de,\1 + (\4 << 5) + (1 << 8)
+    ld bc,\3
+    ldir
+    
+    ld de,\1 + (\4 << 5) + (2 << 8)
+    ld bc,\3
+    ldir
+    
+    ld de,\1 + (\4 << 5) + (3 << 8)
+    ld bc,\3
+    ldir
+    
+    ld de,\1 + (\4 << 5) + (4 << 8)
+    ld bc,\3
+    ldir
+    
+    ld de,\1 + (\4 << 5) + (5 << 8)
+    ld bc,\3
+    ldir
+    
+    ld de,\1 + (\4 << 5) + (6 << 8)
+    ld bc,\3
+    ldir
+    
+    ld de,\1 + (\4 << 5) + (7 << 8)
+    ld bc,\3
+    ldir
+    
+    endm
+
+CopyBufferToScreen:
+    CopyBufferLine SCREENSEG0,BUFFERSTART,BUFFERWIDTH,0
+    CopyBufferLine SCREENSEG0,BUFFERSTART,BUFFERWIDTH,1
+    CopyBufferLine SCREENSEG0,BUFFERSTART,BUFFERWIDTH,2
+    CopyBufferLine SCREENSEG0,BUFFERSTART,BUFFERWIDTH,3
+    CopyBufferLine SCREENSEG0,BUFFERSTART,BUFFERWIDTH,4
+    CopyBufferLine SCREENSEG0,BUFFERSTART,BUFFERWIDTH,5
+    CopyBufferLine SCREENSEG0,BUFFERSTART,BUFFERWIDTH,6
+    CopyBufferLine SCREENSEG0,BUFFERSTART,BUFFERWIDTH,7
+    CopyBufferLine SCREENSEG1,BUFFERSTART + (BUFFERLINESIZE << 6),BUFFERWIDTH,0
+    CopyBufferLine SCREENSEG1,BUFFERSTART + (BUFFERLINESIZE << 6),BUFFERWIDTH,1
+    CopyBufferLine SCREENSEG1,BUFFERSTART + (BUFFERLINESIZE << 6),BUFFERWIDTH,2
+    CopyBufferLine SCREENSEG1,BUFFERSTART + (BUFFERLINESIZE << 6),BUFFERWIDTH,3
+    CopyBufferLine SCREENSEG1,BUFFERSTART + (BUFFERLINESIZE << 6),BUFFERWIDTH,4
+    CopyBufferLine SCREENSEG1,BUFFERSTART + (BUFFERLINESIZE << 6),BUFFERWIDTH,5
+    CopyBufferLine SCREENSEG1,BUFFERSTART + (BUFFERLINESIZE << 6),BUFFERWIDTH,6
+    CopyBufferLine SCREENSEG1,BUFFERSTART + (BUFFERLINESIZE << 6),BUFFERWIDTH,7
+    CopyBufferLine SCREENSEG2,BUFFERSTART + (BUFFERLINESIZE << 9),BUFFERWIDTH,0
+    CopyBufferLine SCREENSEG2,BUFFERSTART + (BUFFERLINESIZE << 9),BUFFERWIDTH,1
+    CopyBufferLine SCREENSEG2,BUFFERSTART + (BUFFERLINESIZE << 9),BUFFERWIDTH,2
+    CopyBufferLine SCREENSEG2,BUFFERSTART + (BUFFERLINESIZE << 9),BUFFERWIDTH,3
+    CopyBufferLine SCREENSEG2,BUFFERSTART + (BUFFERLINESIZE << 9),BUFFERWIDTH,4
+    CopyBufferLine SCREENSEG2,BUFFERSTART + (BUFFERLINESIZE << 9),BUFFERWIDTH,5
+    CopyBufferLine SCREENSEG2,BUFFERSTART + (BUFFERLINESIZE << 9),BUFFERWIDTH,6
+    CopyBufferLine SCREENSEG2,BUFFERSTART + (BUFFERLINESIZE << 9),BUFFERWIDTH,7
+
+    ret
 
 Start:
-    ld hl,SCREEN
+
+    call VSync
+    call CopyBufferToScreen
+
+    ld hl,BUFFERSTART
     ld de,TestSprite+1+((0 * 6)*16)
     
-    call VSync
     call DrawSprite
 
-    ld hl,SCREEN
+    call VSync
+    call CopyBufferToScreen
+
+    ld hl,BUFFERSTART
     ld de,TestSprite+1+((1 * 6)*16)
     
-    call VSync
     call DrawSprite
 
-    ld hl,SCREEN
+    call CopyBufferToScreen
+
+    ld hl,BUFFERSTART
     ld de,TestSprite+1+((2 * 6)*16)
     
-    call VSync
     call DrawSprite
 
-    ld hl,SCREEN
+    call CopyBufferToScreen
+
+    ld hl,BUFFERSTART
     ld de,TestSprite+1+((3 * 6)*16)
     
-    call VSync
     call DrawSprite
 
-    ld hl,SCREEN
+    call CopyBufferToScreen
+
+    ld hl,BUFFERSTART
     ld de,TestSprite+1+((4 * 6)*16)
     
-    call VSync
     call DrawSprite
 
-    ld hl,SCREEN
+    call CopyBufferToScreen
+
+    ld hl,BUFFERSTART
     ld de,TestSprite+1+((5 * 6)*16)
     
-    call VSync
     call DrawSprite
 
-    ld hl,SCREEN
+    call CopyBufferToScreen
+
+    ld hl,BUFFERSTART
     ld de,TestSprite+1+((6 * 6)*16)
     
-    call VSync
     call DrawSprite
 
-    ld hl,SCREEN
+    call CopyBufferToScreen
+
+    ld hl,BUFFERSTART
     ld de,TestSprite+1+((7 * 6)*16)
     
-    call VSync
     call DrawSprite
 
-    ld hl,SCREEN+1
+    call CopyBufferToScreen
+
+    ld hl,BUFFERSTART+1
     ld de,TestSprite+1+((0 * 6)*16)
     
-    call VSync
     call DrawSprite
 
-    ld hl,SCREEN+1
+    call CopyBufferToScreen
+
+    ld hl,BUFFERSTART+1
     ld de,TestSprite+1+((1 * 6)*16)
     
-    call VSync
     call DrawSprite
 
-    ld hl,SCREEN+1
+    call CopyBufferToScreen
+
+    ld hl,BUFFERSTART+1
     ld de,TestSprite+1+((2 * 6)*16)
     
-    call VSync
     call DrawSprite
 
-    ld hl,SCREEN+1
+    call CopyBufferToScreen
+
+    ld hl,BUFFERSTART+1
     ld de,TestSprite+1+((3 * 6)*16)
     
-    call VSync
     call DrawSprite
 
-    ld hl,SCREEN+1
+    call CopyBufferToScreen
+
+    ld hl,BUFFERSTART+1
     ld de,TestSprite+1+((4 * 6)*16)
     
-    call VSync
     call DrawSprite
 
-    ld hl,SCREEN+1
+    call CopyBufferToScreen
+
+    ld hl,BUFFERSTART+1
     ld de,TestSprite+1+((5 * 6)*16)
     
-    call VSync
     call DrawSprite
 
-    ld hl,SCREEN+1
+    call CopyBufferToScreen
+
+    ld hl,BUFFERSTART+1
     ld de,TestSprite+1+((6 * 6)*16)
     
-    call VSync
     call DrawSprite
 
-    ld hl,SCREEN+1
+    call CopyBufferToScreen
+
+    ld hl,BUFFERSTART+1
     ld de,TestSprite+1+((7 * 6)*16)
     
-    call VSync
     call DrawSprite
 
-    ld hl,SCREEN+2
+    call CopyBufferToScreen
+
+    ld hl,BUFFERSTART+2
     ld de,TestSprite+1+((0 * 6)*16)
     
-    call VSync
     call DrawSprite
 
-    ld hl,SCREEN+2
+    call CopyBufferToScreen
+
+    ld hl,BUFFERSTART+2
     ld de,TestSprite+1+((1 * 6)*16)
     
-    call VSync
     call DrawSprite
 
-    ld hl,SCREEN+2
+    call CopyBufferToScreen
+
+    ld hl,BUFFERSTART+2
     ld de,TestSprite+1+((2 * 6)*16)
     
-    call VSync
     call DrawSprite
 
-    ld hl,SCREEN+2
+    call CopyBufferToScreen
+
+    ld hl,BUFFERSTART+2
     ld de,TestSprite+1+((3 * 6)*16)
     
-    call VSync
     call DrawSprite
 
-    ld hl,SCREEN+2
+    call CopyBufferToScreen
+
+    ld hl,BUFFERSTART+2
     ld de,TestSprite+1+((4 * 6)*16)
     
-    call VSync
     call DrawSprite
 
-    ld hl,SCREEN+2
+    call CopyBufferToScreen
+
+    ld hl,BUFFERSTART+2
     ld de,TestSprite+1+((5 * 6)*16)
     
-    call VSync
     call DrawSprite
 
-    ld hl,SCREEN+2
+    call CopyBufferToScreen
+
+    ld hl,BUFFERSTART+2
     ld de,TestSprite+1+((6 * 6)*16)
     
-    call VSync
     call DrawSprite
 
-    ld hl,SCREEN+2
+    call CopyBufferToScreen
+
+    ld hl,BUFFERSTART+2
     ld de,TestSprite+1+((7 * 6)*16)
     
-    call VSync
     call DrawSprite
 
     jp Start
@@ -500,6 +609,3 @@ Part3:
 
 TestSprite:
     incbin build/test.bin
-
-ROM_CLS     equ $0daf
-SCREEN      equ $4000
