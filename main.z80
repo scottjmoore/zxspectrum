@@ -462,6 +462,8 @@ DrawSprite:
 
 VSync:
     halt
+    halt
+    halt
     ret
 
 PrintString:
