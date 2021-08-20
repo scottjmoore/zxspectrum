@@ -1,31 +1,474 @@
     org $8000
 
 Start:
-    call ROM_CLS
-    ld hl,Message
-    call PrintString
-    call PrintString
-    call PrintString
-    call PrintString
-    call PrintString
-    call PrintString
-    call PrintString
-    call PrintString
-    call PrintString
-    call PrintString
-    call PrintString
-    call PrintString
-    call PrintString
-    call PrintString
-    call PrintString
-    call PrintString
-    call PrintString
-    call PrintString
-    call PrintString
-    call PrintString
-    call PrintString
-    call PrintString
+    ld hl,SCREEN
+    ld de,TestSprite+1+((0 * 6)*16)
+    
+    call VSync
+    call DrawSprite
+
+    ld hl,SCREEN
+    ld de,TestSprite+1+((1 * 6)*16)
+    
+    call VSync
+    call DrawSprite
+
+    ld hl,SCREEN
+    ld de,TestSprite+1+((2 * 6)*16)
+    
+    call VSync
+    call DrawSprite
+
+    ld hl,SCREEN
+    ld de,TestSprite+1+((3 * 6)*16)
+    
+    call VSync
+    call DrawSprite
+
+    ld hl,SCREEN
+    ld de,TestSprite+1+((4 * 6)*16)
+    
+    call VSync
+    call DrawSprite
+
+    ld hl,SCREEN
+    ld de,TestSprite+1+((5 * 6)*16)
+    
+    call VSync
+    call DrawSprite
+
+    ld hl,SCREEN
+    ld de,TestSprite+1+((6 * 6)*16)
+    
+    call VSync
+    call DrawSprite
+
+    ld hl,SCREEN
+    ld de,TestSprite+1+((7 * 6)*16)
+    
+    call VSync
+    call DrawSprite
+
+    ld hl,SCREEN+1
+    ld de,TestSprite+1+((0 * 6)*16)
+    
+    call VSync
+    call DrawSprite
+
+    ld hl,SCREEN+1
+    ld de,TestSprite+1+((1 * 6)*16)
+    
+    call VSync
+    call DrawSprite
+
+    ld hl,SCREEN+1
+    ld de,TestSprite+1+((2 * 6)*16)
+    
+    call VSync
+    call DrawSprite
+
+    ld hl,SCREEN+1
+    ld de,TestSprite+1+((3 * 6)*16)
+    
+    call VSync
+    call DrawSprite
+
+    ld hl,SCREEN+1
+    ld de,TestSprite+1+((4 * 6)*16)
+    
+    call VSync
+    call DrawSprite
+
+    ld hl,SCREEN+1
+    ld de,TestSprite+1+((5 * 6)*16)
+    
+    call VSync
+    call DrawSprite
+
+    ld hl,SCREEN+1
+    ld de,TestSprite+1+((6 * 6)*16)
+    
+    call VSync
+    call DrawSprite
+
+    ld hl,SCREEN+1
+    ld de,TestSprite+1+((7 * 6)*16)
+    
+    call VSync
+    call DrawSprite
+
+    ld hl,SCREEN+2
+    ld de,TestSprite+1+((0 * 6)*16)
+    
+    call VSync
+    call DrawSprite
+
+    ld hl,SCREEN+2
+    ld de,TestSprite+1+((1 * 6)*16)
+    
+    call VSync
+    call DrawSprite
+
+    ld hl,SCREEN+2
+    ld de,TestSprite+1+((2 * 6)*16)
+    
+    call VSync
+    call DrawSprite
+
+    ld hl,SCREEN+2
+    ld de,TestSprite+1+((3 * 6)*16)
+    
+    call VSync
+    call DrawSprite
+
+    ld hl,SCREEN+2
+    ld de,TestSprite+1+((4 * 6)*16)
+    
+    call VSync
+    call DrawSprite
+
+    ld hl,SCREEN+2
+    ld de,TestSprite+1+((5 * 6)*16)
+    
+    call VSync
+    call DrawSprite
+
+    ld hl,SCREEN+2
+    ld de,TestSprite+1+((6 * 6)*16)
+    
+    call VSync
+    call DrawSprite
+
+    ld hl,SCREEN+2
+    ld de,TestSprite+1+((7 * 6)*16)
+    
+    call VSync
+    call DrawSprite
+
     jp Start
+
+DrawSprite:
+    ld a,4
+    call 8859
+    
+    push hl
+    push hl
+    ld a,(de)
+    ld (hl),a
+    inc hl
+    inc de
+    inc de
+    ld a,(de)
+    ld (hl),a
+    inc hl
+    inc de
+    inc de
+    ld a,(de)
+    ld (hl),a
+    inc hl
+    inc de
+    inc de
+    pop hl
+    inc h
+
+    push hl
+    ld a,(de)
+    ld (hl),a
+    inc hl
+    inc de
+    inc de
+    ld a,(de)
+    ld (hl),a
+    inc hl
+    inc de
+    inc de
+    ld a,(de)
+    ld (hl),a
+    inc hl
+    inc de
+    inc de
+    pop hl
+    inc h
+    
+    push hl
+    ld a,(de)
+    ld (hl),a
+    inc hl
+    inc de
+    inc de
+    ld a,(de)
+    ld (hl),a
+    inc hl
+    inc de
+    inc de
+    ld a,(de)
+    ld (hl),a
+    inc hl
+    inc de
+    inc de
+    pop hl
+    inc h
+    
+    push hl
+    ld a,(de)
+    ld (hl),a
+    inc hl
+    inc de
+    inc de
+    ld a,(de)
+    ld (hl),a
+    inc hl
+    inc de
+    inc de
+    ld a,(de)
+    ld (hl),a
+    inc hl
+    inc de
+    inc de
+    pop hl
+    inc h
+    
+    push hl
+    ld a,(de)
+    ld (hl),a
+    inc hl
+    inc de
+    inc de
+    ld a,(de)
+    ld (hl),a
+    inc hl
+    inc de
+    inc de
+    ld a,(de)
+    ld (hl),a
+    inc hl
+    inc de
+    inc de
+    pop hl
+    inc h
+    
+    push hl
+    ld a,(de)
+    ld (hl),a
+    inc hl
+    inc de
+    inc de
+    ld a,(de)
+    ld (hl),a
+    inc hl
+    inc de
+    inc de
+    ld a,(de)
+    ld (hl),a
+    inc hl
+    inc de
+    inc de
+    pop hl
+    inc h
+    
+    push hl
+    ld a,(de)
+    ld (hl),a
+    inc hl
+    inc de
+    inc de
+    ld a,(de)
+    ld (hl),a
+    inc hl
+    inc de
+    inc de
+    ld a,(de)
+    ld (hl),a
+    inc hl
+    inc de
+    inc de
+    pop hl
+    inc h
+    
+    push hl
+    ld a,(de)
+    ld (hl),a
+    inc hl
+    inc de
+    inc de
+    ld a,(de)
+    ld (hl),a
+    inc hl
+    inc de
+    inc de
+    ld a,(de)
+    ld (hl),a
+    inc hl
+    inc de
+    inc de
+    pop hl
+    
+    pop hl
+    ld a,l
+    add a,32
+    ld l,a
+    push hl
+
+    push hl
+    ld a,(de)
+    ld (hl),a
+    inc hl
+    inc de
+    inc de
+    ld a,(de)
+    ld (hl),a
+    inc hl
+    inc de
+    inc de
+    ld a,(de)
+    ld (hl),a
+    inc hl
+    inc de
+    inc de
+    pop hl
+    inc h
+
+    push hl
+    ld a,(de)
+    ld (hl),a
+    inc hl
+    inc de
+    inc de
+    ld a,(de)
+    ld (hl),a
+    inc hl
+    inc de
+    inc de
+    ld a,(de)
+    ld (hl),a
+    inc hl
+    inc de
+    inc de
+    pop hl
+    inc h
+    
+    push hl
+    ld a,(de)
+    ld (hl),a
+    inc hl
+    inc de
+    inc de
+    ld a,(de)
+    ld (hl),a
+    inc hl
+    inc de
+    inc de
+    ld a,(de)
+    ld (hl),a
+    inc hl
+    inc de
+    inc de
+    pop hl
+    inc h
+    
+    push hl
+    ld a,(de)
+    ld (hl),a
+    inc hl
+    inc de
+    inc de
+    ld a,(de)
+    ld (hl),a
+    inc hl
+    inc de
+    inc de
+    ld a,(de)
+    ld (hl),a
+    inc hl
+    inc de
+    inc de
+    pop hl
+    inc h
+    
+    push hl
+    ld a,(de)
+    ld (hl),a
+    inc hl
+    inc de
+    inc de
+    ld a,(de)
+    ld (hl),a
+    inc hl
+    inc de
+    inc de
+    ld a,(de)
+    ld (hl),a
+    inc hl
+    inc de
+    inc de
+    pop hl
+    inc h
+    
+    push hl
+    ld a,(de)
+    ld (hl),a
+    inc hl
+    inc de
+    inc de
+    ld a,(de)
+    ld (hl),a
+    inc hl
+    inc de
+    inc de
+    ld a,(de)
+    ld (hl),a
+    inc hl
+    inc de
+    inc de
+    pop hl
+    inc h
+    
+    push hl
+    ld a,(de)
+    ld (hl),a
+    inc hl
+    inc de
+    inc de
+    ld a,(de)
+    ld (hl),a
+    inc hl
+    inc de
+    inc de
+    ld a,(de)
+    ld (hl),a
+    inc hl
+    inc de
+    inc de
+    pop hl
+    inc h
+    
+    push hl
+    ld a,(de)
+    ld (hl),a
+    inc hl
+    inc de
+    inc de
+    ld a,(de)
+    ld (hl),a
+    inc hl
+    inc de
+    inc de
+    ld a,(de)
+    ld (hl),a
+    inc hl
+    inc de
+    inc de
+    pop hl
+    pop hl
+
+    ld a,7
+    call 8859
+
+    ret
+
+VSync:
+    halt
+    ret
 
 PrintString:
     push hl
@@ -63,3 +506,4 @@ TestSprite:
     incbin build/test.bin
 
 ROM_CLS     equ $0daf
+SCREEN      equ $4000
