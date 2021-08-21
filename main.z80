@@ -5,9 +5,9 @@ SCREENSEG0      equ $4000
 SCREENSEG1      equ $4800
 SCREENSEG2      equ $5000
 
-BUFFERWIDTH     equ 32
-BUFFERHEIGHT    equ 24
-BUFFERPAD       equ 0
+BUFFERWIDTH     equ 24
+BUFFERHEIGHT    equ 20
+BUFFERPAD       equ 2
 BUFFERLINESIZE  equ (BUFFERWIDTH + (BUFFERPAD << 1))
 BUFFERSIZE      equ (BUFFERLINESIZE * (BUFFERHEIGHT + (BUFFERPAD << 1)) << 3)
 BUFFERSTART     equ Buffer + BUFFERPAD + ((BUFFERLINESIZE * BUFFERPAD) << 3)
@@ -25,553 +25,687 @@ CopyBufferLine  macro
     ldir
 
     ld de,\1 + (\4 << 5) + (1 << 8)
+    ld bc,BUFFERPAD << 1
+    add hl,bc
     ld bc,\3
     ldir
     
     ld de,\1 + (\4 << 5) + (2 << 8)
+    ld bc,BUFFERPAD << 1
+    add hl,bc
     ld bc,\3
     ldir
     
     ld de,\1 + (\4 << 5) + (3 << 8)
+    ld bc,BUFFERPAD << 1
+    add hl,bc
     ld bc,\3
     ldir
     
     ld de,\1 + (\4 << 5) + (4 << 8)
+    ld bc,BUFFERPAD << 1
+    add hl,bc
     ld bc,\3
     ldir
     
     ld de,\1 + (\4 << 5) + (5 << 8)
+    ld bc,BUFFERPAD << 1
+    add hl,bc
     ld bc,\3
     ldir
     
     ld de,\1 + (\4 << 5) + (6 << 8)
+    ld bc,BUFFERPAD << 1
+    add hl,bc
     ld bc,\3
     ldir
     
     ld de,\1 + (\4 << 5) + (7 << 8)
+    ld bc,BUFFERPAD << 1
+    add hl,bc
     ld bc,\3
     ldir
     
     endm
 
 CopyBufferToScreen:
-    CopyBufferLine SCREENSEG0,BUFFERSTART,BUFFERWIDTH,0
-    CopyBufferLine SCREENSEG0,BUFFERSTART,BUFFERWIDTH,1
-    CopyBufferLine SCREENSEG0,BUFFERSTART,BUFFERWIDTH,2
-    CopyBufferLine SCREENSEG0,BUFFERSTART,BUFFERWIDTH,3
-    CopyBufferLine SCREENSEG0,BUFFERSTART,BUFFERWIDTH,4
-    CopyBufferLine SCREENSEG0,BUFFERSTART,BUFFERWIDTH,5
-    CopyBufferLine SCREENSEG0,BUFFERSTART,BUFFERWIDTH,6
-    CopyBufferLine SCREENSEG0,BUFFERSTART,BUFFERWIDTH,7
-    CopyBufferLine SCREENSEG1,BUFFERSTART + (BUFFERLINESIZE << 6),BUFFERWIDTH,0
-    CopyBufferLine SCREENSEG1,BUFFERSTART + (BUFFERLINESIZE << 6),BUFFERWIDTH,1
-    CopyBufferLine SCREENSEG1,BUFFERSTART + (BUFFERLINESIZE << 6),BUFFERWIDTH,2
-    CopyBufferLine SCREENSEG1,BUFFERSTART + (BUFFERLINESIZE << 6),BUFFERWIDTH,3
-    CopyBufferLine SCREENSEG1,BUFFERSTART + (BUFFERLINESIZE << 6),BUFFERWIDTH,4
-    CopyBufferLine SCREENSEG1,BUFFERSTART + (BUFFERLINESIZE << 6),BUFFERWIDTH,5
-    CopyBufferLine SCREENSEG1,BUFFERSTART + (BUFFERLINESIZE << 6),BUFFERWIDTH,6
-    CopyBufferLine SCREENSEG1,BUFFERSTART + (BUFFERLINESIZE << 6),BUFFERWIDTH,7
-    CopyBufferLine SCREENSEG2,BUFFERSTART + (BUFFERLINESIZE << 6),BUFFERWIDTH,0
-    CopyBufferLine SCREENSEG2,BUFFERSTART + (BUFFERLINESIZE << 6),BUFFERWIDTH,1
-    CopyBufferLine SCREENSEG2,BUFFERSTART + (BUFFERLINESIZE << 6),BUFFERWIDTH,2
-    CopyBufferLine SCREENSEG2,BUFFERSTART + (BUFFERLINESIZE << 6),BUFFERWIDTH,3
-    CopyBufferLine SCREENSEG2,BUFFERSTART + (BUFFERLINESIZE << 6),BUFFERWIDTH,4
-    CopyBufferLine SCREENSEG2,BUFFERSTART + (BUFFERLINESIZE << 6),BUFFERWIDTH,5
-    CopyBufferLine SCREENSEG2,BUFFERSTART + (BUFFERLINESIZE << 6),BUFFERWIDTH,6
-    CopyBufferLine SCREENSEG2,BUFFERSTART + (BUFFERLINESIZE << 6),BUFFERWIDTH,7
+    if (BUFFERHEIGHT >= 1)
+        CopyBufferLine SCREENSEG0,BUFFERSTART,BUFFERWIDTH,0
+    endif
+
+    if (BUFFERHEIGHT >= 2)
+        CopyBufferLine SCREENSEG0,BUFFERSTART,BUFFERWIDTH,1
+    endif
+
+    if (BUFFERHEIGHT >= 3)
+        CopyBufferLine SCREENSEG0,BUFFERSTART,BUFFERWIDTH,2
+    endif
+
+    if (BUFFERHEIGHT >= 4)
+        CopyBufferLine SCREENSEG0,BUFFERSTART,BUFFERWIDTH,3
+    endif
+
+    if (BUFFERHEIGHT >= 5)
+        CopyBufferLine SCREENSEG0,BUFFERSTART,BUFFERWIDTH,4
+    endif
+
+    if (BUFFERHEIGHT >= 6)
+        CopyBufferLine SCREENSEG0,BUFFERSTART,BUFFERWIDTH,5
+    endif
+
+    if (BUFFERHEIGHT >= 7)
+        CopyBufferLine SCREENSEG0,BUFFERSTART,BUFFERWIDTH,6
+    endif
+
+    if (BUFFERHEIGHT >= 8)
+        CopyBufferLine SCREENSEG0,BUFFERSTART,BUFFERWIDTH,7
+    endif
+
+    if (BUFFERHEIGHT >= 9)
+        CopyBufferLine SCREENSEG1,BUFFERSTART + (BUFFERLINESIZE << 6),BUFFERWIDTH,0
+    endif
+
+    if (BUFFERHEIGHT >= 10)
+        CopyBufferLine SCREENSEG1,BUFFERSTART + (BUFFERLINESIZE << 6),BUFFERWIDTH,1
+    endif
+
+    if (BUFFERHEIGHT >= 11)
+        CopyBufferLine SCREENSEG1,BUFFERSTART + (BUFFERLINESIZE << 6),BUFFERWIDTH,2
+    endif
+
+    if (BUFFERHEIGHT >= 12)
+        CopyBufferLine SCREENSEG1,BUFFERSTART + (BUFFERLINESIZE << 6),BUFFERWIDTH,3
+    endif
+
+    if (BUFFERHEIGHT >= 13)
+        CopyBufferLine SCREENSEG1,BUFFERSTART + (BUFFERLINESIZE << 6),BUFFERWIDTH,4
+    endif
+
+    if (BUFFERHEIGHT >= 14)
+        CopyBufferLine SCREENSEG1,BUFFERSTART + (BUFFERLINESIZE << 6),BUFFERWIDTH,5
+    endif
+
+    if (BUFFERHEIGHT >= 15)
+        CopyBufferLine SCREENSEG1,BUFFERSTART + (BUFFERLINESIZE << 6),BUFFERWIDTH,6
+    endif
+
+    if (BUFFERHEIGHT >= 16)
+        CopyBufferLine SCREENSEG1,BUFFERSTART + (BUFFERLINESIZE << 6),BUFFERWIDTH,7
+    endif
+
+    if (BUFFERHEIGHT >= 17)
+        CopyBufferLine SCREENSEG2,BUFFERSTART + (BUFFERLINESIZE << 7),BUFFERWIDTH,0
+    endif
+
+    if (BUFFERHEIGHT >= 18)
+    CopyBufferLine SCREENSEG2,BUFFERSTART + (BUFFERLINESIZE << 7),BUFFERWIDTH,1
+    endif
+
+    if (BUFFERHEIGHT >= 19)
+     CopyBufferLine SCREENSEG2,BUFFERSTART + (BUFFERLINESIZE << 7),BUFFERWIDTH,2
+    endif
+
+    if (BUFFERHEIGHT >= 20)
+     CopyBufferLine SCREENSEG2,BUFFERSTART + (BUFFERLINESIZE << 7),BUFFERWIDTH,3
+    endif
+
+    if (BUFFERHEIGHT >= 21)
+     CopyBufferLine SCREENSEG2,BUFFERSTART + (BUFFERLINESIZE << 7),BUFFERWIDTH,4
+    endif
+
+    if (BUFFERHEIGHT >= 22)
+     CopyBufferLine SCREENSEG2,BUFFERSTART + (BUFFERLINESIZE << 7),BUFFERWIDTH,5
+    endif
+
+    if (BUFFERHEIGHT >= 23)
+     CopyBufferLine SCREENSEG2,BUFFERSTART + (BUFFERLINESIZE << 7),BUFFERWIDTH,6
+    endif
+
+    if (BUFFERHEIGHT >=24)
+     CopyBufferLine SCREENSEG2,BUFFERSTART + (BUFFERLINESIZE << 7),BUFFERWIDTH,7
+    endif
 
     ret
 
+SpriteSrcAddr:
+    dw TestSprite+((0 * 6)*16)
+
+SpriteDstAddr:
+    dw BUFFERSTART
+
 Start:
 
-    call VSync
-    call CopyBufferToScreen
-
-    ld hl,BUFFERSTART
-    ld de,TestSprite+1+((0 * 6)*16)
+    ld de,(SpriteDstAddr)
+    ld hl,(SpriteSrcAddr)
     
     call DrawSprite
 
-    call VSync
+    halt
     call CopyBufferToScreen
 
-    ld hl,BUFFERSTART
-    ld de,TestSprite+1+((1 * 6)*16)
-    
-    call DrawSprite
-
-    call CopyBufferToScreen
-
-    ld hl,BUFFERSTART
-    ld de,TestSprite+1+((2 * 6)*16)
-    
-    call DrawSprite
-
-    call CopyBufferToScreen
-
-    ld hl,BUFFERSTART
-    ld de,TestSprite+1+((3 * 6)*16)
-    
-    call DrawSprite
-
-    call CopyBufferToScreen
-
-    ld hl,BUFFERSTART
-    ld de,TestSprite+1+((4 * 6)*16)
-    
-    call DrawSprite
-
-    call CopyBufferToScreen
-
-    ld hl,BUFFERSTART
-    ld de,TestSprite+1+((5 * 6)*16)
-    
-    call DrawSprite
-
-    call CopyBufferToScreen
-
-    ld hl,BUFFERSTART
-    ld de,TestSprite+1+((6 * 6)*16)
-    
-    call DrawSprite
-
-    call CopyBufferToScreen
-
-    ld hl,BUFFERSTART
-    ld de,TestSprite+1+((7 * 6)*16)
-    
-    call DrawSprite
-
-    call CopyBufferToScreen
-
-    ld hl,BUFFERSTART+1
-    ld de,TestSprite+1+((0 * 6)*16)
-    
-    call DrawSprite
-
-    call CopyBufferToScreen
-
-    ld hl,BUFFERSTART+1
-    ld de,TestSprite+1+((1 * 6)*16)
-    
-    call DrawSprite
-
-    call CopyBufferToScreen
-
-    ld hl,BUFFERSTART+1
-    ld de,TestSprite+1+((2 * 6)*16)
-    
-    call DrawSprite
-
-    call CopyBufferToScreen
-
-    ld hl,BUFFERSTART+1
-    ld de,TestSprite+1+((3 * 6)*16)
-    
-    call DrawSprite
-
-    call CopyBufferToScreen
-
-    ld hl,BUFFERSTART+1
-    ld de,TestSprite+1+((4 * 6)*16)
-    
-    call DrawSprite
-
-    call CopyBufferToScreen
-
-    ld hl,BUFFERSTART+1
-    ld de,TestSprite+1+((5 * 6)*16)
-    
-    call DrawSprite
-
-    call CopyBufferToScreen
-
-    ld hl,BUFFERSTART+1
-    ld de,TestSprite+1+((6 * 6)*16)
-    
-    call DrawSprite
-
-    call CopyBufferToScreen
-
-    ld hl,BUFFERSTART+1
-    ld de,TestSprite+1+((7 * 6)*16)
-    
-    call DrawSprite
-
-    call CopyBufferToScreen
-
-    ld hl,BUFFERSTART+2
-    ld de,TestSprite+1+((0 * 6)*16)
-    
-    call DrawSprite
-
-    call CopyBufferToScreen
-
-    ld hl,BUFFERSTART+2
-    ld de,TestSprite+1+((1 * 6)*16)
-    
-    call DrawSprite
-
-    call CopyBufferToScreen
-
-    ld hl,BUFFERSTART+2
-    ld de,TestSprite+1+((2 * 6)*16)
-    
-    call DrawSprite
-
-    call CopyBufferToScreen
-
-    ld hl,BUFFERSTART+2
-    ld de,TestSprite+1+((3 * 6)*16)
-    
-    call DrawSprite
-
-    call CopyBufferToScreen
-
-    ld hl,BUFFERSTART+2
-    ld de,TestSprite+1+((4 * 6)*16)
-    
-    call DrawSprite
-
-    call CopyBufferToScreen
-
-    ld hl,BUFFERSTART+2
-    ld de,TestSprite+1+((5 * 6)*16)
-    
-    call DrawSprite
-
-    call CopyBufferToScreen
-
-    ld hl,BUFFERSTART+2
-    ld de,TestSprite+1+((6 * 6)*16)
-    
-    call DrawSprite
-
-    call CopyBufferToScreen
-
-    ld hl,BUFFERSTART+2
-    ld de,TestSprite+1+((7 * 6)*16)
-    
-    call DrawSprite
+    ld bc,BUFFERLINESIZE
+    ld hl,(SpriteDstAddr)
+    add hl,bc
+    ld (SpriteDstAddr),hl
 
     jp Start
 
+DrawSpriteAddr:
+    dw $0000
+
 DrawSprite:
+    ld (DrawSpriteAddr),de
+
+    ld a,(de)
+    and (hl)
+    inc hl
+    or (hl)
+    inc hl
+    ld (de),a
+    inc de
+
+    ld a,(de)
+    and (hl)
+    inc hl
+    or (hl)
+    inc hl
+    ld (de),a
+    inc de
+    
+    ld a,(de)
+    and (hl)
+    inc hl
+    or (hl)
+    inc hl
+    ld (de),a
+    inc de
+
     push hl
-    ld a,(de)
-    ld (hl),a
-    inc de
-    inc de
-    inc hl
-    ld a,(de)
-    ld (hl),a
-    inc de
-    inc de
-    inc hl
-    ld a,(de)
-    ld (hl),a
-    inc de
-    inc de
+    ld hl,(DrawSpriteAddr)
+    ld bc,BUFFERLINESIZE
+    add hl,bc
+    ld (DrawSpriteAddr),hl
+    ld de,(DrawSpriteAddr)
     pop hl
 
-    ld bc,BUFFERLINESIZE
-    add hl, bc
+    ld a,(de)
+    and (hl)
+    inc hl
+    or (hl)
+    inc hl
+    ld (de),a
+    inc de
+
+    ld a,(de)
+    and (hl)
+    inc hl
+    or (hl)
+    inc hl
+    ld (de),a
+    inc de
+    
+    ld a,(de)
+    and (hl)
+    inc hl
+    or (hl)
+    inc hl
+    ld (de),a
+    inc de
 
     push hl
-    ld a,(de)
-    ld (hl),a
-    inc de
-    inc de
-    inc hl
-    ld a,(de)
-    ld (hl),a
-    inc de
-    inc de
-    inc hl
-    ld a,(de)
-    ld (hl),a
-    inc de
-    inc de
+    ld hl,(DrawSpriteAddr)
+    ld bc,BUFFERLINESIZE
+    add hl,bc
+    ld (DrawSpriteAddr),hl
+    ld de,(DrawSpriteAddr)
     pop hl
 
-    ld bc,BUFFERLINESIZE
-    add hl, bc
+    ld a,(de)
+    and (hl)
+    inc hl
+    or (hl)
+    inc hl
+    ld (de),a
+    inc de
+
+    ld a,(de)
+    and (hl)
+    inc hl
+    or (hl)
+    inc hl
+    ld (de),a
+    inc de
+    
+    ld a,(de)
+    and (hl)
+    inc hl
+    or (hl)
+    inc hl
+    ld (de),a
+    inc de
 
     push hl
-    ld a,(de)
-    ld (hl),a
-    inc de
-    inc de
-    inc hl
-    ld a,(de)
-    ld (hl),a
-    inc de
-    inc de
-    inc hl
-    ld a,(de)
-    ld (hl),a
-    inc de
-    inc de
+    ld hl,(DrawSpriteAddr)
+    ld bc,BUFFERLINESIZE
+    add hl,bc
+    ld (DrawSpriteAddr),hl
+    ld de,(DrawSpriteAddr)
     pop hl
 
-    ld bc,BUFFERLINESIZE
-    add hl, bc
+    ld a,(de)
+    and (hl)
+    inc hl
+    or (hl)
+    inc hl
+    ld (de),a
+    inc de
+
+    ld a,(de)
+    and (hl)
+    inc hl
+    or (hl)
+    inc hl
+    ld (de),a
+    inc de
+    
+    ld a,(de)
+    and (hl)
+    inc hl
+    or (hl)
+    inc hl
+    ld (de),a
+    inc de
 
     push hl
-    ld a,(de)
-    ld (hl),a
-    inc de
-    inc de
-    inc hl
-    ld a,(de)
-    ld (hl),a
-    inc de
-    inc de
-    inc hl
-    ld a,(de)
-    ld (hl),a
-    inc de
-    inc de
+    ld hl,(DrawSpriteAddr)
+    ld bc,BUFFERLINESIZE
+    add hl,bc
+    ld (DrawSpriteAddr),hl
+    ld de,(DrawSpriteAddr)
     pop hl
 
-    ld bc,BUFFERLINESIZE
-    add hl, bc
+    ld a,(de)
+    and (hl)
+    inc hl
+    or (hl)
+    inc hl
+    ld (de),a
+    inc de
+
+    ld a,(de)
+    and (hl)
+    inc hl
+    or (hl)
+    inc hl
+    ld (de),a
+    inc de
+    
+    ld a,(de)
+    and (hl)
+    inc hl
+    or (hl)
+    inc hl
+    ld (de),a
+    inc de
 
     push hl
-    ld a,(de)
-    ld (hl),a
-    inc de
-    inc de
-    inc hl
-    ld a,(de)
-    ld (hl),a
-    inc de
-    inc de
-    inc hl
-    ld a,(de)
-    ld (hl),a
-    inc de
-    inc de
+    ld hl,(DrawSpriteAddr)
+    ld bc,BUFFERLINESIZE
+    add hl,bc
+    ld (DrawSpriteAddr),hl
+    ld de,(DrawSpriteAddr)
     pop hl
 
-    ld bc,BUFFERLINESIZE
-    add hl, bc
+    ld a,(de)
+    and (hl)
+    inc hl
+    or (hl)
+    inc hl
+    ld (de),a
+    inc de
+
+    ld a,(de)
+    and (hl)
+    inc hl
+    or (hl)
+    inc hl
+    ld (de),a
+    inc de
+    
+    ld a,(de)
+    and (hl)
+    inc hl
+    or (hl)
+    inc hl
+    ld (de),a
+    inc de
 
     push hl
-    ld a,(de)
-    ld (hl),a
-    inc de
-    inc de
-    inc hl
-    ld a,(de)
-    ld (hl),a
-    inc de
-    inc de
-    inc hl
-    ld a,(de)
-    ld (hl),a
-    inc de
-    inc de
+    ld hl,(DrawSpriteAddr)
+    ld bc,BUFFERLINESIZE
+    add hl,bc
+    ld (DrawSpriteAddr),hl
+    ld de,(DrawSpriteAddr)
     pop hl
 
-    ld bc,BUFFERLINESIZE
-    add hl, bc
+    ld a,(de)
+    and (hl)
+    inc hl
+    or (hl)
+    inc hl
+    ld (de),a
+    inc de
+
+    ld a,(de)
+    and (hl)
+    inc hl
+    or (hl)
+    inc hl
+    ld (de),a
+    inc de
+    
+    ld a,(de)
+    and (hl)
+    inc hl
+    or (hl)
+    inc hl
+    ld (de),a
+    inc de
 
     push hl
-    ld a,(de)
-    ld (hl),a
-    inc de
-    inc de
-    inc hl
-    ld a,(de)
-    ld (hl),a
-    inc de
-    inc de
-    inc hl
-    ld a,(de)
-    ld (hl),a
-    inc de
-    inc de
+    ld hl,(DrawSpriteAddr)
+    ld bc,BUFFERLINESIZE
+    add hl,bc
+    ld (DrawSpriteAddr),hl
+    ld de,(DrawSpriteAddr)
     pop hl
 
-    ld bc,BUFFERLINESIZE
-    add hl, bc
+    ld a,(de)
+    and (hl)
+    inc hl
+    or (hl)
+    inc hl
+    ld (de),a
+    inc de
+
+    ld a,(de)
+    and (hl)
+    inc hl
+    or (hl)
+    inc hl
+    ld (de),a
+    inc de
+    
+    ld a,(de)
+    and (hl)
+    inc hl
+    or (hl)
+    inc hl
+    ld (de),a
+    inc de
 
     push hl
-    ld a,(de)
-    ld (hl),a
-    inc de
-    inc de
-    inc hl
-    ld a,(de)
-    ld (hl),a
-    inc de
-    inc de
-    inc hl
-    ld a,(de)
-    ld (hl),a
-    inc de
-    inc de
+    ld hl,(DrawSpriteAddr)
+    ld bc,BUFFERLINESIZE
+    add hl,bc
+    ld (DrawSpriteAddr),hl
+    ld de,(DrawSpriteAddr)
     pop hl
 
-    ld bc,BUFFERLINESIZE
-    add hl, bc
+    ld a,(de)
+    and (hl)
+    inc hl
+    or (hl)
+    inc hl
+    ld (de),a
+    inc de
+
+    ld a,(de)
+    and (hl)
+    inc hl
+    or (hl)
+    inc hl
+    ld (de),a
+    inc de
+    
+    ld a,(de)
+    and (hl)
+    inc hl
+    or (hl)
+    inc hl
+    ld (de),a
+    inc de
 
     push hl
-    ld a,(de)
-    ld (hl),a
-    inc de
-    inc de
-    inc hl
-    ld a,(de)
-    ld (hl),a
-    inc de
-    inc de
-    inc hl
-    ld a,(de)
-    ld (hl),a
-    inc de
-    inc de
+    ld hl,(DrawSpriteAddr)
+    ld bc,BUFFERLINESIZE
+    add hl,bc
+    ld (DrawSpriteAddr),hl
+    ld de,(DrawSpriteAddr)
     pop hl
 
-    ld bc,BUFFERLINESIZE
-    add hl, bc
+    ld a,(de)
+    and (hl)
+    inc hl
+    or (hl)
+    inc hl
+    ld (de),a
+    inc de
+
+    ld a,(de)
+    and (hl)
+    inc hl
+    or (hl)
+    inc hl
+    ld (de),a
+    inc de
+    
+    ld a,(de)
+    and (hl)
+    inc hl
+    or (hl)
+    inc hl
+    ld (de),a
+    inc de
 
     push hl
-    ld a,(de)
-    ld (hl),a
-    inc de
-    inc de
-    inc hl
-    ld a,(de)
-    ld (hl),a
-    inc de
-    inc de
-    inc hl
-    ld a,(de)
-    ld (hl),a
-    inc de
-    inc de
+    ld hl,(DrawSpriteAddr)
+    ld bc,BUFFERLINESIZE
+    add hl,bc
+    ld (DrawSpriteAddr),hl
+    ld de,(DrawSpriteAddr)
     pop hl
 
-    ld bc,BUFFERLINESIZE
-    add hl, bc
+    ld a,(de)
+    and (hl)
+    inc hl
+    or (hl)
+    inc hl
+    ld (de),a
+    inc de
+
+    ld a,(de)
+    and (hl)
+    inc hl
+    or (hl)
+    inc hl
+    ld (de),a
+    inc de
+    
+    ld a,(de)
+    and (hl)
+    inc hl
+    or (hl)
+    inc hl
+    ld (de),a
+    inc de
 
     push hl
-    ld a,(de)
-    ld (hl),a
-    inc de
-    inc de
-    inc hl
-    ld a,(de)
-    ld (hl),a
-    inc de
-    inc de
-    inc hl
-    ld a,(de)
-    ld (hl),a
-    inc de
-    inc de
+    ld hl,(DrawSpriteAddr)
+    ld bc,BUFFERLINESIZE
+    add hl,bc
+    ld (DrawSpriteAddr),hl
+    ld de,(DrawSpriteAddr)
     pop hl
 
-    ld bc,BUFFERLINESIZE
-    add hl, bc
+    ld a,(de)
+    and (hl)
+    inc hl
+    or (hl)
+    inc hl
+    ld (de),a
+    inc de
+
+    ld a,(de)
+    and (hl)
+    inc hl
+    or (hl)
+    inc hl
+    ld (de),a
+    inc de
+    
+    ld a,(de)
+    and (hl)
+    inc hl
+    or (hl)
+    inc hl
+    ld (de),a
+    inc de
 
     push hl
-    ld a,(de)
-    ld (hl),a
-    inc de
-    inc de
-    inc hl
-    ld a,(de)
-    ld (hl),a
-    inc de
-    inc de
-    inc hl
-    ld a,(de)
-    ld (hl),a
-    inc de
-    inc de
+    ld hl,(DrawSpriteAddr)
+    ld bc,BUFFERLINESIZE
+    add hl,bc
+    ld (DrawSpriteAddr),hl
+    ld de,(DrawSpriteAddr)
     pop hl
 
-    ld bc,BUFFERLINESIZE
-    add hl, bc
+    ld a,(de)
+    and (hl)
+    inc hl
+    or (hl)
+    inc hl
+    ld (de),a
+    inc de
+
+    ld a,(de)
+    and (hl)
+    inc hl
+    or (hl)
+    inc hl
+    ld (de),a
+    inc de
+    
+    ld a,(de)
+    and (hl)
+    inc hl
+    or (hl)
+    inc hl
+    ld (de),a
+    inc de
 
     push hl
-    ld a,(de)
-    ld (hl),a
-    inc de
-    inc de
-    inc hl
-    ld a,(de)
-    ld (hl),a
-    inc de
-    inc de
-    inc hl
-    ld a,(de)
-    ld (hl),a
-    inc de
-    inc de
+    ld hl,(DrawSpriteAddr)
+    ld bc,BUFFERLINESIZE
+    add hl,bc
+    ld (DrawSpriteAddr),hl
+    ld de,(DrawSpriteAddr)
     pop hl
 
-    ld bc,BUFFERLINESIZE
-    add hl, bc
+    ld a,(de)
+    and (hl)
+    inc hl
+    or (hl)
+    inc hl
+    ld (de),a
+    inc de
+
+    ld a,(de)
+    and (hl)
+    inc hl
+    or (hl)
+    inc hl
+    ld (de),a
+    inc de
+    
+    ld a,(de)
+    and (hl)
+    inc hl
+    or (hl)
+    inc hl
+    ld (de),a
+    inc de
 
     push hl
-    ld a,(de)
-    ld (hl),a
-    inc de
-    inc de
-    inc hl
-    ld a,(de)
-    ld (hl),a
-    inc de
-    inc de
-    inc hl
-    ld a,(de)
-    ld (hl),a
-    inc de
-    inc de
+    ld hl,(DrawSpriteAddr)
+    ld bc,BUFFERLINESIZE
+    add hl,bc
+    ld (DrawSpriteAddr),hl
+    ld de,(DrawSpriteAddr)
     pop hl
 
-    ld bc,BUFFERLINESIZE
-    add hl, bc
+    ld a,(de)
+    and (hl)
+    inc hl
+    or (hl)
+    inc hl
+    ld (de),a
+    inc de
+
+    ld a,(de)
+    and (hl)
+    inc hl
+    or (hl)
+    inc hl
+    ld (de),a
+    inc de
+    
+    ld a,(de)
+    and (hl)
+    inc hl
+    or (hl)
+    inc hl
+    ld (de),a
+    inc de
 
     push hl
-    ld a,(de)
-    ld (hl),a
-    inc de
-    inc de
-    inc hl
-    ld a,(de)
-    ld (hl),a
-    inc de
-    inc de
-    inc hl
-    ld a,(de)
-    ld (hl),a
-    inc de
-    inc de
+    ld hl,(DrawSpriteAddr)
+    ld bc,BUFFERLINESIZE
+    add hl,bc
+    ld (DrawSpriteAddr),hl
+    ld de,(DrawSpriteAddr)
     pop hl
 
-    ld bc,BUFFERLINESIZE
-    add hl, bc
+    ld a,(de)
+    and (hl)
+    inc hl
+    or (hl)
+    inc hl
+    ld (de),a
+    inc de
+
+    ld a,(de)
+    and (hl)
+    inc hl
+    or (hl)
+    inc hl
+    ld (de),a
+    inc de
+    
+    ld a,(de)
+    and (hl)
+    inc hl
+    or (hl)
+    inc hl
+    ld (de),a
+    inc de
 
     push hl
-    ld a,(de)
-    ld (hl),a
-    inc de
-    inc de
-    inc hl
-    ld a,(de)
-    ld (hl),a
-    inc de
-    inc de
-    inc hl
-    ld a,(de)
-    ld (hl),a
-    inc de
-    inc de
+    ld hl,(DrawSpriteAddr)
+    ld bc,BUFFERLINESIZE
+    add hl,bc
+    ld (DrawSpriteAddr),hl
+    ld de,(DrawSpriteAddr)
     pop hl
 
     ret
