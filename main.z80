@@ -168,14 +168,31 @@ CopyBufferToScreen:
     ret
 
 SpriteSrcAddr:
-    dw TestSprite + ((0 * 6) * 16)
-    dw TestSprite + ((1 * 6) * 16)
-    dw TestSprite + ((2 * 6) * 16)
-    dw TestSprite + ((3 * 6) * 16)
-    dw TestSprite + ((4 * 6) * 16)
-    dw TestSprite + ((5 * 6) * 16)
-    dw TestSprite + ((6 * 6) * 16)
-    dw TestSprite + ((7 * 6) * 16)
+    dw TestSprite
+    dw 0
+    dw TestSprite
+    dw 0
+    dw TestSprite
+    dw 0
+    dw TestSprite
+    dw 0
+    dw TestSprite
+    dw 0
+    dw TestSprite
+    dw 0
+    dw TestSprite
+    dw 0
+    dw TestSprite
+    
+SpriteSrcOffset:
+    dw ((0 * 6) * 16)
+    dw ((1 * 6) * 16)
+    dw ((2 * 6) * 16)
+    dw ((3 * 6) * 16)
+    dw ((4 * 6) * 16)
+    dw ((5 * 6) * 16)
+    dw ((6 * 6) * 16)
+    dw ((7 * 6) * 16)
 
 SpriteDstAddr:
     dw BUFFERSTART
@@ -189,36 +206,12 @@ SpriteDstAddr:
 
 Start:
 
+    ld de,(SpriteSrcAddr)
+    ld (_smc1 + 1),de
+
     ld de,(SpriteDstAddr)
-    ld hl,(SpriteSrcAddr)    
-    call DrawSprite
-
-    ld de,(SpriteDstAddr + 2)
-    ld hl,(SpriteSrcAddr + 2)    
-    call DrawSprite
-
-    ld de,(SpriteDstAddr + 4)
-    ld hl,(SpriteSrcAddr + 4)    
-    call DrawSprite
-
-    ld de,(SpriteDstAddr + 6)
-    ld hl,(SpriteSrcAddr + 6)    
-    call DrawSprite
-
-    ld de,(SpriteDstAddr + 8)
-    ld hl,(SpriteSrcAddr + 8)    
-    call DrawSprite
-
-    ld de,(SpriteDstAddr + 10)
-    ld hl,(SpriteSrcAddr + 10)    
-    call DrawSprite
-
-    ld de,(SpriteDstAddr + 12)
-    ld hl,(SpriteSrcAddr + 12)    
-    call DrawSprite
-
-    ld de,(SpriteDstAddr + 14)
-    ld hl,(SpriteSrcAddr + 14)    
+_smc1:
+    ld hl,SpriteSrcAddr
     call DrawSprite
 
     halt
