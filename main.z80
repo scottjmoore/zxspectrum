@@ -235,6 +235,14 @@ _smc1:
     add hl,bc
     ld (SpriteDstAddr),hl
 
+    ld a,(SpriteSrcAddr + 2)
+    ;  inc a
+    ;  cp a,8
+    ;  jr ne _store
+    inc a
+    and %00000111
+    ld (SpriteSrcAddr + 2),a
+
     jp Start
 
 DrawSpriteAddr:
