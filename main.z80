@@ -258,313 +258,320 @@ Start:
 
 DrawSprite:
     push hl
-    push hl
     ld a,(de)
     ld (hl),a
+    inc de
+    inc de
     inc hl
-    inc de
-    inc de
     ld a,(de)
     ld (hl),a
+    inc de
+    inc de
     inc hl
-    inc de
-    inc de
     ld a,(de)
     ld (hl),a
-    inc hl
     inc de
     inc de
     pop hl
-    inc h
+
+    ld bc,BUFFERLINESIZE
+    add hl, bc
 
     push hl
     ld a,(de)
     ld (hl),a
+    inc de
+    inc de
     inc hl
-    inc de
-    inc de
     ld a,(de)
     ld (hl),a
+    inc de
+    inc de
     inc hl
-    inc de
-    inc de
     ld a,(de)
     ld (hl),a
-    inc hl
     inc de
     inc de
     pop hl
-    inc h
-    
-    push hl
-    ld a,(de)
-    ld (hl),a
-    inc hl
-    inc de
-    inc de
-    ld a,(de)
-    ld (hl),a
-    inc hl
-    inc de
-    inc de
-    ld a,(de)
-    ld (hl),a
-    inc hl
-    inc de
-    inc de
-    pop hl
-    inc h
-    
-    push hl
-    ld a,(de)
-    ld (hl),a
-    inc hl
-    inc de
-    inc de
-    ld a,(de)
-    ld (hl),a
-    inc hl
-    inc de
-    inc de
-    ld a,(de)
-    ld (hl),a
-    inc hl
-    inc de
-    inc de
-    pop hl
-    inc h
-    
-    push hl
-    ld a,(de)
-    ld (hl),a
-    inc hl
-    inc de
-    inc de
-    ld a,(de)
-    ld (hl),a
-    inc hl
-    inc de
-    inc de
-    ld a,(de)
-    ld (hl),a
-    inc hl
-    inc de
-    inc de
-    pop hl
-    inc h
-    
-    push hl
-    ld a,(de)
-    ld (hl),a
-    inc hl
-    inc de
-    inc de
-    ld a,(de)
-    ld (hl),a
-    inc hl
-    inc de
-    inc de
-    ld a,(de)
-    ld (hl),a
-    inc hl
-    inc de
-    inc de
-    pop hl
-    inc h
-    
-    push hl
-    ld a,(de)
-    ld (hl),a
-    inc hl
-    inc de
-    inc de
-    ld a,(de)
-    ld (hl),a
-    inc hl
-    inc de
-    inc de
-    ld a,(de)
-    ld (hl),a
-    inc hl
-    inc de
-    inc de
-    pop hl
-    inc h
-    
-    push hl
-    ld a,(de)
-    ld (hl),a
-    inc hl
-    inc de
-    inc de
-    ld a,(de)
-    ld (hl),a
-    inc hl
-    inc de
-    inc de
-    ld a,(de)
-    ld (hl),a
-    inc hl
-    inc de
-    inc de
-    pop hl
-    
-    pop hl
-    ld a,l
-    add a,32
-    ld l,a
-    push hl
+
+    ld bc,BUFFERLINESIZE
+    add hl, bc
 
     push hl
     ld a,(de)
     ld (hl),a
+    inc de
+    inc de
     inc hl
-    inc de
-    inc de
     ld a,(de)
     ld (hl),a
+    inc de
+    inc de
     inc hl
-    inc de
-    inc de
     ld a,(de)
     ld (hl),a
-    inc hl
     inc de
     inc de
     pop hl
-    inc h
+
+    ld bc,BUFFERLINESIZE
+    add hl, bc
 
     push hl
     ld a,(de)
     ld (hl),a
+    inc de
+    inc de
     inc hl
-    inc de
-    inc de
     ld a,(de)
     ld (hl),a
+    inc de
+    inc de
     inc hl
-    inc de
-    inc de
     ld a,(de)
     ld (hl),a
-    inc hl
     inc de
     inc de
     pop hl
-    inc h
-    
+
+    ld bc,BUFFERLINESIZE
+    add hl, bc
+
     push hl
     ld a,(de)
     ld (hl),a
+    inc de
+    inc de
     inc hl
-    inc de
-    inc de
     ld a,(de)
     ld (hl),a
+    inc de
+    inc de
     inc hl
-    inc de
-    inc de
     ld a,(de)
     ld (hl),a
-    inc hl
     inc de
     inc de
     pop hl
-    inc h
-    
+
+    ld bc,BUFFERLINESIZE
+    add hl, bc
+
     push hl
     ld a,(de)
     ld (hl),a
+    inc de
+    inc de
     inc hl
-    inc de
-    inc de
     ld a,(de)
     ld (hl),a
+    inc de
+    inc de
     inc hl
-    inc de
-    inc de
     ld a,(de)
     ld (hl),a
-    inc hl
     inc de
     inc de
     pop hl
-    inc h
-    
+
+    ld bc,BUFFERLINESIZE
+    add hl, bc
+
     push hl
     ld a,(de)
     ld (hl),a
+    inc de
+    inc de
     inc hl
-    inc de
-    inc de
     ld a,(de)
     ld (hl),a
+    inc de
+    inc de
     inc hl
-    inc de
-    inc de
     ld a,(de)
     ld (hl),a
-    inc hl
     inc de
     inc de
     pop hl
-    inc h
-    
+
+    ld bc,BUFFERLINESIZE
+    add hl, bc
+
     push hl
     ld a,(de)
     ld (hl),a
+    inc de
+    inc de
     inc hl
-    inc de
-    inc de
     ld a,(de)
     ld (hl),a
+    inc de
+    inc de
     inc hl
-    inc de
-    inc de
     ld a,(de)
     ld (hl),a
-    inc hl
     inc de
     inc de
     pop hl
-    inc h
-    
+
+    ld bc,BUFFERLINESIZE
+    add hl, bc
+
     push hl
     ld a,(de)
     ld (hl),a
+    inc de
+    inc de
     inc hl
-    inc de
-    inc de
     ld a,(de)
     ld (hl),a
+    inc de
+    inc de
     inc hl
-    inc de
-    inc de
     ld a,(de)
     ld (hl),a
-    inc hl
     inc de
     inc de
     pop hl
-    inc h
-    
+
+    ld bc,BUFFERLINESIZE
+    add hl, bc
+
     push hl
     ld a,(de)
     ld (hl),a
+    inc de
+    inc de
     inc hl
-    inc de
-    inc de
     ld a,(de)
     ld (hl),a
+    inc de
+    inc de
     inc hl
-    inc de
-    inc de
     ld a,(de)
     ld (hl),a
-    inc hl
     inc de
     inc de
     pop hl
+
+    ld bc,BUFFERLINESIZE
+    add hl, bc
+
+    push hl
+    ld a,(de)
+    ld (hl),a
+    inc de
+    inc de
+    inc hl
+    ld a,(de)
+    ld (hl),a
+    inc de
+    inc de
+    inc hl
+    ld a,(de)
+    ld (hl),a
+    inc de
+    inc de
+    pop hl
+
+    ld bc,BUFFERLINESIZE
+    add hl, bc
+
+    push hl
+    ld a,(de)
+    ld (hl),a
+    inc de
+    inc de
+    inc hl
+    ld a,(de)
+    ld (hl),a
+    inc de
+    inc de
+    inc hl
+    ld a,(de)
+    ld (hl),a
+    inc de
+    inc de
+    pop hl
+
+    ld bc,BUFFERLINESIZE
+    add hl, bc
+
+    push hl
+    ld a,(de)
+    ld (hl),a
+    inc de
+    inc de
+    inc hl
+    ld a,(de)
+    ld (hl),a
+    inc de
+    inc de
+    inc hl
+    ld a,(de)
+    ld (hl),a
+    inc de
+    inc de
+    pop hl
+
+    ld bc,BUFFERLINESIZE
+    add hl, bc
+
+    push hl
+    ld a,(de)
+    ld (hl),a
+    inc de
+    inc de
+    inc hl
+    ld a,(de)
+    ld (hl),a
+    inc de
+    inc de
+    inc hl
+    ld a,(de)
+    ld (hl),a
+    inc de
+    inc de
+    pop hl
+
+    ld bc,BUFFERLINESIZE
+    add hl, bc
+
+    push hl
+    ld a,(de)
+    ld (hl),a
+    inc de
+    inc de
+    inc hl
+    ld a,(de)
+    ld (hl),a
+    inc de
+    inc de
+    inc hl
+    ld a,(de)
+    ld (hl),a
+    inc de
+    inc de
+    pop hl
+
+    ld bc,BUFFERLINESIZE
+    add hl, bc
+
+    push hl
+    ld a,(de)
+    ld (hl),a
+    inc de
+    inc de
+    inc hl
+    ld a,(de)
+    ld (hl),a
+    inc de
+    inc de
+    inc hl
+    ld a,(de)
+    ld (hl),a
+    inc de
+    inc de
     pop hl
 
     ret
