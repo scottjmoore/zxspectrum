@@ -169,7 +169,7 @@ CopyBufferToScreen:
 
 SpriteSrcAddr:
     dw TestSprite
-    dw 0
+    dw 7
     dw TestSprite
     dw 0
     dw TestSprite
@@ -206,12 +206,25 @@ SpriteDstAddr:
 
 Start:
 
-    ld de,(SpriteSrcAddr)
-    ld (_smc1 + 1),de
+    ld hl,(SpriteSrcAddr + 2)
+    add hl,hl
+    ld bc,SpriteSrcOffset
+    add hl,bc
+    ld (_smc2 + 2),hl
+_smc2:
+    ld bc,(SpriteSrcOffset)
+    ld hl,SpriteSrcAddr
+    ld e,(hl)
+    inc hl
+    ld d,(hl)
+    push de
+    pop hl
+    add hl,bc
+    ld (_smc1 + 1),hl
 
     ld de,(SpriteDstAddr)
 _smc1:
-    ld hl,SpriteSrcAddr
+    ld hl,0
     call DrawSprite
 
     halt
