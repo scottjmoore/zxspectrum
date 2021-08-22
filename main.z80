@@ -195,7 +195,7 @@ SpriteSrcOffset:
     dw ((7 * 9) * 16)
 
 SpriteDstAddr:
-    dw BUFFERSTART
+    dw BUFFER
     dw BUFFERSTART + 2 + (BUFFERLINESIZE * 8)
     dw BUFFERSTART + 4 + (BUFFERLINESIZE * 16)
     dw BUFFERSTART + 6 + (BUFFERLINESIZE * 24)
