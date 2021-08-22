@@ -169,7 +169,7 @@ CopyBufferToScreen:
 
 SpriteSrcAddr:
     dw TestSprite
-    dw 7
+    dw 0
     dw TestSprite
     dw 0
     dw TestSprite
