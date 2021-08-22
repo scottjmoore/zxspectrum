@@ -206,6 +206,21 @@ SpriteDstAddr:
 
 Start:
 
+    ld hl,$5800
+    ld c,0
+    ld a,%01000111
+ClearAttributesLoop:
+    ld (hl),a
+    inc hl
+    ld (hl),a
+    inc hl
+    ld (hl),a
+    inc hl
+    dec c
+    jr nz,ClearAttributesLoop
+    ld a,0
+    out (254),a
+
     ld a,0
     ld c,BUFFERHEIGHT
     sla c
@@ -249,15 +264,25 @@ _smc1:
     ld hl,0
     push de
     push hl
+    ld a,%100
+    out (254),a
     call DrawSprite
+    ld a,%000
+    out (254),a
 
     halt
     call CopyBufferToScreen
 
     pop hl
     pop de
+    ld a,%010
+    out (254),a
     call EraseSprite
+    ld a,%000
+    out (254),a
 
+    ld a,%001
+    out (254),a
     ld bc,BUFFERLINESIZE
     ld hl,(SpriteDstAddr)
     add hl,bc
@@ -271,6 +296,9 @@ _smc1:
     ld (SpriteDstAddr),hl
 DontMoveCharacter:
     ld (SpriteSrcAddr + 2),a
+
+    ld a,%000
+    out (254),a
 
     jp StartLoop
 
