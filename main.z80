@@ -185,14 +185,14 @@ SpriteSrcAddr:
     dw TestSprite
     
 SpriteSrcOffset:
-    dw ((0 * 6) * 16)
-    dw ((1 * 6) * 16)
-    dw ((2 * 6) * 16)
-    dw ((3 * 6) * 16)
-    dw ((4 * 6) * 16)
-    dw ((5 * 6) * 16)
-    dw ((6 * 6) * 16)
-    dw ((7 * 6) * 16)
+    dw ((0 * 9) * 16)
+    dw ((1 * 9) * 16)
+    dw ((2 * 9) * 16)
+    dw ((3 * 9) * 16)
+    dw ((4 * 9) * 16)
+    dw ((5 * 9) * 16)
+    dw ((6 * 9) * 16)
+    dw ((7 * 9) * 16)
 
 SpriteDstAddr:
     dw BUFFERSTART
@@ -206,6 +206,28 @@ SpriteDstAddr:
 
 Start:
 
+    ld a,0
+    ld c,BUFFERHEIGHT
+    sla c
+    sla c
+    sla c
+    ld hl,BUFFERSTART
+    ld de,BUFFERLINESIZE
+ClearBufferLoop0:
+    ld b,BUFFERWIDTH
+    push hl
+ClearBufferLoop1:
+    ld (hl),a
+    inc hl
+    dec b
+    jr nz,ClearBufferLoop1
+    pop hl
+    add hl,de
+    inc a
+    dec c
+    jr nz,ClearBufferLoop0
+
+StartLoop:
     ld hl,(SpriteSrcAddr + 2)
     add hl,hl
     ld bc,SpriteSrcOffset
@@ -225,10 +247,16 @@ _smc2:
     ld de,(SpriteDstAddr)
 _smc1:
     ld hl,0
+    push de
+    push hl
     call DrawSprite
 
     halt
     call CopyBufferToScreen
+
+    pop hl
+    pop de
+    call EraseSprite
 
     ld bc,BUFFERLINESIZE
     ld hl,(SpriteDstAddr)
@@ -236,14 +264,15 @@ _smc1:
     ld (SpriteDstAddr),hl
 
     ld a,(SpriteSrcAddr + 2)
-    ;  inc a
-    ;  cp a,8
-    ;  jr ne _store
     inc a
     and %00000111
+    jr nz,DontMoveCharacter
+    inc hl
+    ld (SpriteDstAddr),hl
+DontMoveCharacter:
     ld (SpriteSrcAddr + 2),a
 
-    jp Start
+    jp StartLoop
 
 DrawSpriteAddr:
     dw $0000
@@ -252,6 +281,8 @@ DrawSprite:
     ld (DrawSpriteAddr),de
 
     ld a,(de)
+    ld (hl),a
+    inc hl
     and (hl)
     inc hl
     or (hl)
@@ -260,6 +291,8 @@ DrawSprite:
     inc de
 
     ld a,(de)
+    ld (hl),a
+    inc hl
     and (hl)
     inc hl
     or (hl)
@@ -268,6 +301,8 @@ DrawSprite:
     inc de
     
     ld a,(de)
+    ld (hl),a
+    inc hl
     and (hl)
     inc hl
     or (hl)
@@ -284,6 +319,8 @@ DrawSprite:
     pop hl
 
     ld a,(de)
+    ld (hl),a
+    inc hl
     and (hl)
     inc hl
     or (hl)
@@ -292,6 +329,8 @@ DrawSprite:
     inc de
 
     ld a,(de)
+    ld (hl),a
+    inc hl
     and (hl)
     inc hl
     or (hl)
@@ -300,6 +339,8 @@ DrawSprite:
     inc de
     
     ld a,(de)
+    ld (hl),a
+    inc hl
     and (hl)
     inc hl
     or (hl)
@@ -316,6 +357,8 @@ DrawSprite:
     pop hl
 
     ld a,(de)
+    ld (hl),a
+    inc hl
     and (hl)
     inc hl
     or (hl)
@@ -324,6 +367,8 @@ DrawSprite:
     inc de
 
     ld a,(de)
+    ld (hl),a
+    inc hl
     and (hl)
     inc hl
     or (hl)
@@ -332,6 +377,8 @@ DrawSprite:
     inc de
     
     ld a,(de)
+    ld (hl),a
+    inc hl
     and (hl)
     inc hl
     or (hl)
@@ -348,6 +395,8 @@ DrawSprite:
     pop hl
 
     ld a,(de)
+    ld (hl),a
+    inc hl
     and (hl)
     inc hl
     or (hl)
@@ -356,6 +405,8 @@ DrawSprite:
     inc de
 
     ld a,(de)
+    ld (hl),a
+    inc hl
     and (hl)
     inc hl
     or (hl)
@@ -364,6 +415,8 @@ DrawSprite:
     inc de
     
     ld a,(de)
+    ld (hl),a
+    inc hl
     and (hl)
     inc hl
     or (hl)
@@ -380,6 +433,8 @@ DrawSprite:
     pop hl
 
     ld a,(de)
+    ld (hl),a
+    inc hl
     and (hl)
     inc hl
     or (hl)
@@ -388,6 +443,8 @@ DrawSprite:
     inc de
 
     ld a,(de)
+    ld (hl),a
+    inc hl
     and (hl)
     inc hl
     or (hl)
@@ -396,6 +453,8 @@ DrawSprite:
     inc de
     
     ld a,(de)
+    ld (hl),a
+    inc hl
     and (hl)
     inc hl
     or (hl)
@@ -412,6 +471,8 @@ DrawSprite:
     pop hl
 
     ld a,(de)
+    ld (hl),a
+    inc hl
     and (hl)
     inc hl
     or (hl)
@@ -420,6 +481,8 @@ DrawSprite:
     inc de
 
     ld a,(de)
+    ld (hl),a
+    inc hl
     and (hl)
     inc hl
     or (hl)
@@ -428,6 +491,8 @@ DrawSprite:
     inc de
     
     ld a,(de)
+    ld (hl),a
+    inc hl
     and (hl)
     inc hl
     or (hl)
@@ -444,6 +509,8 @@ DrawSprite:
     pop hl
 
     ld a,(de)
+    ld (hl),a
+    inc hl
     and (hl)
     inc hl
     or (hl)
@@ -452,6 +519,8 @@ DrawSprite:
     inc de
 
     ld a,(de)
+    ld (hl),a
+    inc hl
     and (hl)
     inc hl
     or (hl)
@@ -460,6 +529,8 @@ DrawSprite:
     inc de
     
     ld a,(de)
+    ld (hl),a
+    inc hl
     and (hl)
     inc hl
     or (hl)
@@ -476,6 +547,8 @@ DrawSprite:
     pop hl
 
     ld a,(de)
+    ld (hl),a
+    inc hl
     and (hl)
     inc hl
     or (hl)
@@ -484,6 +557,8 @@ DrawSprite:
     inc de
 
     ld a,(de)
+    ld (hl),a
+    inc hl
     and (hl)
     inc hl
     or (hl)
@@ -492,6 +567,8 @@ DrawSprite:
     inc de
     
     ld a,(de)
+    ld (hl),a
+    inc hl
     and (hl)
     inc hl
     or (hl)
@@ -508,6 +585,8 @@ DrawSprite:
     pop hl
 
     ld a,(de)
+    ld (hl),a
+    inc hl
     and (hl)
     inc hl
     or (hl)
@@ -516,6 +595,8 @@ DrawSprite:
     inc de
 
     ld a,(de)
+    ld (hl),a
+    inc hl
     and (hl)
     inc hl
     or (hl)
@@ -524,6 +605,8 @@ DrawSprite:
     inc de
     
     ld a,(de)
+    ld (hl),a
+    inc hl
     and (hl)
     inc hl
     or (hl)
@@ -540,6 +623,8 @@ DrawSprite:
     pop hl
 
     ld a,(de)
+    ld (hl),a
+    inc hl
     and (hl)
     inc hl
     or (hl)
@@ -548,6 +633,8 @@ DrawSprite:
     inc de
 
     ld a,(de)
+    ld (hl),a
+    inc hl
     and (hl)
     inc hl
     or (hl)
@@ -556,6 +643,8 @@ DrawSprite:
     inc de
     
     ld a,(de)
+    ld (hl),a
+    inc hl
     and (hl)
     inc hl
     or (hl)
@@ -572,6 +661,8 @@ DrawSprite:
     pop hl
 
     ld a,(de)
+    ld (hl),a
+    inc hl
     and (hl)
     inc hl
     or (hl)
@@ -580,6 +671,8 @@ DrawSprite:
     inc de
 
     ld a,(de)
+    ld (hl),a
+    inc hl
     and (hl)
     inc hl
     or (hl)
@@ -588,6 +681,8 @@ DrawSprite:
     inc de
     
     ld a,(de)
+    ld (hl),a
+    inc hl
     and (hl)
     inc hl
     or (hl)
@@ -604,6 +699,8 @@ DrawSprite:
     pop hl
 
     ld a,(de)
+    ld (hl),a
+    inc hl
     and (hl)
     inc hl
     or (hl)
@@ -612,6 +709,8 @@ DrawSprite:
     inc de
 
     ld a,(de)
+    ld (hl),a
+    inc hl
     and (hl)
     inc hl
     or (hl)
@@ -620,6 +719,8 @@ DrawSprite:
     inc de
     
     ld a,(de)
+    ld (hl),a
+    inc hl
     and (hl)
     inc hl
     or (hl)
@@ -636,6 +737,8 @@ DrawSprite:
     pop hl
 
     ld a,(de)
+    ld (hl),a
+    inc hl
     and (hl)
     inc hl
     or (hl)
@@ -644,6 +747,8 @@ DrawSprite:
     inc de
 
     ld a,(de)
+    ld (hl),a
+    inc hl
     and (hl)
     inc hl
     or (hl)
@@ -652,6 +757,8 @@ DrawSprite:
     inc de
     
     ld a,(de)
+    ld (hl),a
+    inc hl
     and (hl)
     inc hl
     or (hl)
@@ -668,6 +775,8 @@ DrawSprite:
     pop hl
 
     ld a,(de)
+    ld (hl),a
+    inc hl
     and (hl)
     inc hl
     or (hl)
@@ -676,6 +785,8 @@ DrawSprite:
     inc de
 
     ld a,(de)
+    ld (hl),a
+    inc hl
     and (hl)
     inc hl
     or (hl)
@@ -684,6 +795,8 @@ DrawSprite:
     inc de
     
     ld a,(de)
+    ld (hl),a
+    inc hl
     and (hl)
     inc hl
     or (hl)
@@ -700,6 +813,8 @@ DrawSprite:
     pop hl
 
     ld a,(de)
+    ld (hl),a
+    inc hl
     and (hl)
     inc hl
     or (hl)
@@ -708,6 +823,8 @@ DrawSprite:
     inc de
 
     ld a,(de)
+    ld (hl),a
+    inc hl
     and (hl)
     inc hl
     or (hl)
@@ -716,6 +833,8 @@ DrawSprite:
     inc de
     
     ld a,(de)
+    ld (hl),a
+    inc hl
     and (hl)
     inc hl
     or (hl)
@@ -732,6 +851,8 @@ DrawSprite:
     pop hl
 
     ld a,(de)
+    ld (hl),a
+    inc hl
     and (hl)
     inc hl
     or (hl)
@@ -740,6 +861,8 @@ DrawSprite:
     inc de
 
     ld a,(de)
+    ld (hl),a
+    inc hl
     and (hl)
     inc hl
     or (hl)
@@ -748,6 +871,8 @@ DrawSprite:
     inc de
     
     ld a,(de)
+    ld (hl),a
+    inc hl
     and (hl)
     inc hl
     or (hl)
@@ -755,12 +880,484 @@ DrawSprite:
     ld (de),a
     inc de
 
+    ; push hl
+    ; ld hl,(DrawSpriteAddr)
+    ; ld bc,BUFFERLINESIZE
+    ; add hl,bc
+    ; ld (DrawSpriteAddr),hl
+    ; ld de,(DrawSpriteAddr)
+    ; pop hl
+
+    ret
+
+EraseSpriteAddr:
+    dw 0
+
+EraseSprite:
+    ld (EraseSpriteAddr),de
+
+    ld a,(hl)
+    ld (de),a
+    inc hl
+    inc hl
+    inc hl
+    inc de
+
+    ld a,(hl)
+    ld (de),a
+    inc hl
+    inc hl
+    inc hl
+    inc de
+    
+    ld a,(hl)
+    ld (de),a
+    inc hl
+    inc hl
+    inc hl
+    inc de
+    
     push hl
-    ld hl,(DrawSpriteAddr)
+    ld hl,(EraseSpriteAddr)
     ld bc,BUFFERLINESIZE
     add hl,bc
-    ld (DrawSpriteAddr),hl
-    ld de,(DrawSpriteAddr)
+    ld (EraseSpriteAddr),hl
+    ld de,(EraseSpriteAddr)
+    pop hl
+
+    ld a,(hl)
+    ld (de),a
+    inc hl
+    inc hl
+    inc hl
+    inc de
+
+    ld a,(hl)
+    ld (de),a
+    inc hl
+    inc hl
+    inc hl
+    inc de
+    
+    ld a,(hl)
+    ld (de),a
+    inc hl
+    inc hl
+    inc hl
+    inc de
+    
+    push hl
+    ld hl,(EraseSpriteAddr)
+    ld bc,BUFFERLINESIZE
+    add hl,bc
+    ld (EraseSpriteAddr),hl
+    ld de,(EraseSpriteAddr)
+    pop hl
+
+    ld a,(hl)
+    ld (de),a
+    inc hl
+    inc hl
+    inc hl
+    inc de
+
+    ld a,(hl)
+    ld (de),a
+    inc hl
+    inc hl
+    inc hl
+    inc de
+    
+    ld a,(hl)
+    ld (de),a
+    inc hl
+    inc hl
+    inc hl
+    inc de
+    
+    push hl
+    ld hl,(EraseSpriteAddr)
+    ld bc,BUFFERLINESIZE
+    add hl,bc
+    ld (EraseSpriteAddr),hl
+    ld de,(EraseSpriteAddr)
+    pop hl
+
+    ld a,(hl)
+    ld (de),a
+    inc hl
+    inc hl
+    inc hl
+    inc de
+
+    ld a,(hl)
+    ld (de),a
+    inc hl
+    inc hl
+    inc hl
+    inc de
+    
+    ld a,(hl)
+    ld (de),a
+    inc hl
+    inc hl
+    inc hl
+    inc de
+    
+    push hl
+    ld hl,(EraseSpriteAddr)
+    ld bc,BUFFERLINESIZE
+    add hl,bc
+    ld (EraseSpriteAddr),hl
+    ld de,(EraseSpriteAddr)
+    pop hl
+
+    ld a,(hl)
+    ld (de),a
+    inc hl
+    inc hl
+    inc hl
+    inc de
+
+    ld a,(hl)
+    ld (de),a
+    inc hl
+    inc hl
+    inc hl
+    inc de
+    
+    ld a,(hl)
+    ld (de),a
+    inc hl
+    inc hl
+    inc hl
+    inc de
+    
+    push hl
+    ld hl,(EraseSpriteAddr)
+    ld bc,BUFFERLINESIZE
+    add hl,bc
+    ld (EraseSpriteAddr),hl
+    ld de,(EraseSpriteAddr)
+    pop hl
+
+    ld a,(hl)
+    ld (de),a
+    inc hl
+    inc hl
+    inc hl
+    inc de
+
+    ld a,(hl)
+    ld (de),a
+    inc hl
+    inc hl
+    inc hl
+    inc de
+    
+    ld a,(hl)
+    ld (de),a
+    inc hl
+    inc hl
+    inc hl
+    inc de
+    
+    push hl
+    ld hl,(EraseSpriteAddr)
+    ld bc,BUFFERLINESIZE
+    add hl,bc
+    ld (EraseSpriteAddr),hl
+    ld de,(EraseSpriteAddr)
+    pop hl
+
+    ld a,(hl)
+    ld (de),a
+    inc hl
+    inc hl
+    inc hl
+    inc de
+
+    ld a,(hl)
+    ld (de),a
+    inc hl
+    inc hl
+    inc hl
+    inc de
+    
+    ld a,(hl)
+    ld (de),a
+    inc hl
+    inc hl
+    inc hl
+    inc de
+    
+    push hl
+    ld hl,(EraseSpriteAddr)
+    ld bc,BUFFERLINESIZE
+    add hl,bc
+    ld (EraseSpriteAddr),hl
+    ld de,(EraseSpriteAddr)
+    pop hl
+
+    ld a,(hl)
+    ld (de),a
+    inc hl
+    inc hl
+    inc hl
+    inc de
+
+    ld a,(hl)
+    ld (de),a
+    inc hl
+    inc hl
+    inc hl
+    inc de
+    
+    ld a,(hl)
+    ld (de),a
+    inc hl
+    inc hl
+    inc hl
+    inc de
+    
+    push hl
+    ld hl,(EraseSpriteAddr)
+    ld bc,BUFFERLINESIZE
+    add hl,bc
+    ld (EraseSpriteAddr),hl
+    ld de,(EraseSpriteAddr)
+    pop hl
+
+    ld a,(hl)
+    ld (de),a
+    inc hl
+    inc hl
+    inc hl
+    inc de
+
+    ld a,(hl)
+    ld (de),a
+    inc hl
+    inc hl
+    inc hl
+    inc de
+    
+    ld a,(hl)
+    ld (de),a
+    inc hl
+    inc hl
+    inc hl
+    inc de
+    
+    push hl
+    ld hl,(EraseSpriteAddr)
+    ld bc,BUFFERLINESIZE
+    add hl,bc
+    ld (EraseSpriteAddr),hl
+    ld de,(EraseSpriteAddr)
+    pop hl
+
+    ld a,(hl)
+    ld (de),a
+    inc hl
+    inc hl
+    inc hl
+    inc de
+
+    ld a,(hl)
+    ld (de),a
+    inc hl
+    inc hl
+    inc hl
+    inc de
+    
+    ld a,(hl)
+    ld (de),a
+    inc hl
+    inc hl
+    inc hl
+    inc de
+    
+    push hl
+    ld hl,(EraseSpriteAddr)
+    ld bc,BUFFERLINESIZE
+    add hl,bc
+    ld (EraseSpriteAddr),hl
+    ld de,(EraseSpriteAddr)
+    pop hl
+
+    ld a,(hl)
+    ld (de),a
+    inc hl
+    inc hl
+    inc hl
+    inc de
+
+    ld a,(hl)
+    ld (de),a
+    inc hl
+    inc hl
+    inc hl
+    inc de
+    
+    ld a,(hl)
+    ld (de),a
+    inc hl
+    inc hl
+    inc hl
+    inc de
+    
+    push hl
+    ld hl,(EraseSpriteAddr)
+    ld bc,BUFFERLINESIZE
+    add hl,bc
+    ld (EraseSpriteAddr),hl
+    ld de,(EraseSpriteAddr)
+    pop hl
+
+    ld a,(hl)
+    ld (de),a
+    inc hl
+    inc hl
+    inc hl
+    inc de
+
+    ld a,(hl)
+    ld (de),a
+    inc hl
+    inc hl
+    inc hl
+    inc de
+    
+    ld a,(hl)
+    ld (de),a
+    inc hl
+    inc hl
+    inc hl
+    inc de
+    
+    push hl
+    ld hl,(EraseSpriteAddr)
+    ld bc,BUFFERLINESIZE
+    add hl,bc
+    ld (EraseSpriteAddr),hl
+    ld de,(EraseSpriteAddr)
+    pop hl
+
+    ld a,(hl)
+    ld (de),a
+    inc hl
+    inc hl
+    inc hl
+    inc de
+
+    ld a,(hl)
+    ld (de),a
+    inc hl
+    inc hl
+    inc hl
+    inc de
+    
+    ld a,(hl)
+    ld (de),a
+    inc hl
+    inc hl
+    inc hl
+    inc de
+    
+    push hl
+    ld hl,(EraseSpriteAddr)
+    ld bc,BUFFERLINESIZE
+    add hl,bc
+    ld (EraseSpriteAddr),hl
+    ld de,(EraseSpriteAddr)
+    pop hl
+
+    ld a,(hl)
+    ld (de),a
+    inc hl
+    inc hl
+    inc hl
+    inc de
+
+    ld a,(hl)
+    ld (de),a
+    inc hl
+    inc hl
+    inc hl
+    inc de
+    
+    ld a,(hl)
+    ld (de),a
+    inc hl
+    inc hl
+    inc hl
+    inc de
+    
+    push hl
+    ld hl,(EraseSpriteAddr)
+    ld bc,BUFFERLINESIZE
+    add hl,bc
+    ld (EraseSpriteAddr),hl
+    ld de,(EraseSpriteAddr)
+    pop hl
+
+    ld a,(hl)
+    ld (de),a
+    inc hl
+    inc hl
+    inc hl
+    inc de
+
+    ld a,(hl)
+    ld (de),a
+    inc hl
+    inc hl
+    inc hl
+    inc de
+    
+    ld a,(hl)
+    ld (de),a
+    inc hl
+    inc hl
+    inc hl
+    inc de
+    
+    push hl
+    ld hl,(EraseSpriteAddr)
+    ld bc,BUFFERLINESIZE
+    add hl,bc
+    ld (EraseSpriteAddr),hl
+    ld de,(EraseSpriteAddr)
+    pop hl
+
+    ld a,(hl)
+    ld (de),a
+    inc hl
+    inc hl
+    inc hl
+    inc de
+
+    ld a,(hl)
+    ld (de),a
+    inc hl
+    inc hl
+    inc hl
+    inc de
+    
+    ld a,(hl)
+    ld (de),a
+    inc hl
+    inc hl
+    inc hl
+    inc de
+    
+    push hl
+    ld hl,(EraseSpriteAddr)
+    ld bc,BUFFERLINESIZE
+    add hl,bc
+    ld (EraseSpriteAddr),hl
+    ld de,(EraseSpriteAddr)
     pop hl
 
     ret

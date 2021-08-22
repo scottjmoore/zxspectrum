@@ -58,6 +58,7 @@ if (image_bpp == 1):
             
             if (p == 1):
                 # print(f'{m:>08b}', end = '')
+                f_out.write(struct.pack('=B',255))
                 f_out.write(struct.pack('=B',m))
                 f_out.write(struct.pack('=B',s))
                 s = 0
