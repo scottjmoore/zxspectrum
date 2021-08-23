@@ -5,8 +5,8 @@ SCREENSEG0      equ $4000
 SCREENSEG1      equ $4800
 SCREENSEG2      equ $5000
 
-BUFFERWIDTH     equ 28
-BUFFERHEIGHT    equ 20
+BUFFERWIDTH     equ 32
+BUFFERHEIGHT    equ 24
 BUFFERPAD       equ 2
 BUFFERLINESIZE  equ (BUFFERWIDTH + (BUFFERPAD << 1))
 BUFFERSIZE      equ (BUFFERLINESIZE * (BUFFERHEIGHT + (BUFFERPAD << 1)) << 3)
@@ -750,6 +750,8 @@ DontMoveCharacter:
 
     ld a,%000
     out (254),a
+
+    jp StartLoop
 
     ld hl,BUFFERSTART + ((BUFFERLINESIZE << 3) * (BUFFERHEIGHT))
     ld b,BUFFERSIZE >> 5
