@@ -31,6 +31,12 @@
             "group": "test",
             "type": "shell",
             "command": "make && retroarch -D -L /usr/lib64/libretro/fuse_libretro.so ./build/program.tap"
+        },
+        {
+            "label": "zesarux",
+            "group": "test",
+            "type": "shell",
+            "command": "make && echo $(pwd) && zesarux --machine 48k --vo xwindows --tape $(pwd)/build/program.tap"
         }
     ]
 }
