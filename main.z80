@@ -343,7 +343,8 @@ DrawSprite:
     ld bc,BUFFERLINESIZE
     add hl,bc
     ld (DrawSpriteAddr),hl
-    ld de,(DrawSpriteAddr)
+    ld d,h
+    ld e,l
     pop hl
 
     ld a,(de)
@@ -381,7 +382,8 @@ DrawSprite:
     ld bc,BUFFERLINESIZE
     add hl,bc
     ld (DrawSpriteAddr),hl
-    ld de,(DrawSpriteAddr)
+    ld d,h
+    ld e,l
     pop hl
 
     ld a,(de)
@@ -419,7 +421,8 @@ DrawSprite:
     ld bc,BUFFERLINESIZE
     add hl,bc
     ld (DrawSpriteAddr),hl
-    ld de,(DrawSpriteAddr)
+    ld d,h
+    ld e,l
     pop hl
 
     ld a,(de)
@@ -457,7 +460,8 @@ DrawSprite:
     ld bc,BUFFERLINESIZE
     add hl,bc
     ld (DrawSpriteAddr),hl
-    ld de,(DrawSpriteAddr)
+    ld d,h
+    ld e,l
     pop hl
 
     ld a,(de)
@@ -495,7 +499,8 @@ DrawSprite:
     ld bc,BUFFERLINESIZE
     add hl,bc
     ld (DrawSpriteAddr),hl
-    ld de,(DrawSpriteAddr)
+    ld d,h
+    ld e,l
     pop hl
 
     ld a,(de)
@@ -533,7 +538,8 @@ DrawSprite:
     ld bc,BUFFERLINESIZE
     add hl,bc
     ld (DrawSpriteAddr),hl
-    ld de,(DrawSpriteAddr)
+    ld d,h
+    ld e,l
     pop hl
 
     ld a,(de)
@@ -571,7 +577,8 @@ DrawSprite:
     ld bc,BUFFERLINESIZE
     add hl,bc
     ld (DrawSpriteAddr),hl
-    ld de,(DrawSpriteAddr)
+    ld d,h
+    ld e,l
     pop hl
 
     ld a,(de)
@@ -609,7 +616,8 @@ DrawSprite:
     ld bc,BUFFERLINESIZE
     add hl,bc
     ld (DrawSpriteAddr),hl
-    ld de,(DrawSpriteAddr)
+    ld d,h
+    ld e,l
     pop hl
 
     ld a,(de)
@@ -647,7 +655,8 @@ DrawSprite:
     ld bc,BUFFERLINESIZE
     add hl,bc
     ld (DrawSpriteAddr),hl
-    ld de,(DrawSpriteAddr)
+    ld d,h
+    ld e,l
     pop hl
 
     ld a,(de)
@@ -685,7 +694,8 @@ DrawSprite:
     ld bc,BUFFERLINESIZE
     add hl,bc
     ld (DrawSpriteAddr),hl
-    ld de,(DrawSpriteAddr)
+    ld d,h
+    ld e,l
     pop hl
 
     ld a,(de)
@@ -723,7 +733,8 @@ DrawSprite:
     ld bc,BUFFERLINESIZE
     add hl,bc
     ld (DrawSpriteAddr),hl
-    ld de,(DrawSpriteAddr)
+    ld d,h
+    ld e,l
     pop hl
 
     ld a,(de)
@@ -761,7 +772,8 @@ DrawSprite:
     ld bc,BUFFERLINESIZE
     add hl,bc
     ld (DrawSpriteAddr),hl
-    ld de,(DrawSpriteAddr)
+    ld d,h
+    ld e,l
     pop hl
 
     ld a,(de)
@@ -799,7 +811,8 @@ DrawSprite:
     ld bc,BUFFERLINESIZE
     add hl,bc
     ld (DrawSpriteAddr),hl
-    ld de,(DrawSpriteAddr)
+    ld d,h
+    ld e,l
     pop hl
 
     ld a,(de)
@@ -837,7 +850,8 @@ DrawSprite:
     ld bc,BUFFERLINESIZE
     add hl,bc
     ld (DrawSpriteAddr),hl
-    ld de,(DrawSpriteAddr)
+    ld d,h
+    ld e,l
     pop hl
 
     ld a,(de)
@@ -875,7 +889,8 @@ DrawSprite:
     ld bc,BUFFERLINESIZE
     add hl,bc
     ld (DrawSpriteAddr),hl
-    ld de,(DrawSpriteAddr)
+    ld d,h
+    ld e,l
     pop hl
 
     ld a,(de)
