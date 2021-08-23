@@ -222,14 +222,14 @@ ClearAttributesLoop:
     out (254),a
 
     ld a,0
-    ld c,BUFFERHEIGHT
+    ld c,BUFFERHEIGHT + (BUFFERPAD << 1)
     sla c
     sla c
     sla c
-    ld hl,BUFFERSTART
+    ld hl,BUFFER
     ld de,BUFFERLINESIZE
 ClearBufferLoop0:
-    ld b,BUFFERWIDTH
+    ld b,BUFFERWIDTH + (BUFFERPAD << 1)
     push hl
 ClearBufferLoop1:
     ld (hl),a
@@ -299,6 +299,76 @@ DontMoveCharacter:
 
     ld a,%000
     out (254),a
+
+    ld hl,BUFFER + BUFFERSIZE - 1
+    ld b,BUFFERSIZE >> 5
+    or a
+ScrollLoop:
+    rl (hl)
+    dec hl
+    rl (hl)
+    dec hl
+    rl (hl)
+    dec hl
+    rl (hl)
+    dec hl
+    rl (hl)
+    dec hl
+    rl (hl)
+    dec hl
+    rl (hl)
+    dec hl
+    rl (hl)
+    dec hl
+    rl (hl)
+    dec hl
+    rl (hl)
+    dec hl
+    rl (hl)
+    dec hl
+    rl (hl)
+    dec hl
+    rl (hl)
+    dec hl
+    rl (hl)
+    dec hl
+    rl (hl)
+    dec hl
+    rl (hl)
+    dec hl
+    rl (hl)
+    dec hl
+    rl (hl)
+    dec hl
+    rl (hl)
+    dec hl
+    rl (hl)
+    dec hl
+    rl (hl)
+    dec hl
+    rl (hl)
+    dec hl
+    rl (hl)
+    dec hl
+    rl (hl)
+    dec hl
+    rl (hl)
+    dec hl
+    rl (hl)
+    dec hl
+    rl (hl)
+    dec hl
+    rl (hl)
+    dec hl
+    rl (hl)
+    dec hl
+    rl (hl)
+    dec hl
+    rl (hl)
+    dec hl
+    rl (hl)
+    dec hl
+    djnz ScrollLoop    
 
     jp StartLoop
 
