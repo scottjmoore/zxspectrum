@@ -655,6 +655,7 @@ SpriteDstAddr:
     dw BUFFERSTART + 14 + (BUFFERLINESIZE * 64)
 
 Start:
+    call ROM_CLS
 
     ld hl,$5800
     ld c,0
@@ -750,7 +751,7 @@ DontMoveCharacter:
     ld a,%000
     out (254),a
 
-    ld hl,BUFFERSTART + ((BUFFERLINESIZE << 3) * (BUFFERHEIGHT - 4))
+    ld hl,BUFFERSTART + ((BUFFERLINESIZE << 3) * (BUFFERHEIGHT))
     ld b,BUFFERSIZE >> 5
     or a
 ScrollLoop:
