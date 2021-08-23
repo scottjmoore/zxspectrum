@@ -24,6 +24,10 @@ run-retroarch:
 	@make
 	@retroarch -D -L /usr/lib64/libretro/fuse_libretro.so build/program.tap & disown
 
+run-zesarux:
+	@make
+	@zesarux --machine 48k --vo xwindows --tape $(shell pwd)/build/program.tap & disown
+
 clean-run:
 	@make clean
 	@make run
