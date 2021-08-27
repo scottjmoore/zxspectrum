@@ -14,7 +14,7 @@ BUFFERSTART     equ BUFFER + BUFFERPAD + ((BUFFERLINESIZE * BUFFERPAD) << 3)
 
 BUFFER          equ $e700
 
-    org $8000
+    org $6000
     jp Start
 
 StackPointer:
