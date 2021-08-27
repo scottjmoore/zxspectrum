@@ -999,14 +999,6 @@ DrawSprite:
     ld (de),a
     inc de
 
-    ; push hl
-    ; ld hl,(DrawSpriteAddr)
-    ; ld bc,BUFFERLINESIZE
-    ; add hl,bc
-    ; ld (DrawSpriteAddr),hl
-    ; ld de,(DrawSpriteAddr)
-    ; pop hl
-
     ret
 
 EraseSpriteAddr:
@@ -1480,42 +1472,6 @@ EraseSprite:
     pop hl
 
     ret
-
-VSync:
-    halt
-    ret
-
-PrintString:
-    push hl
-    call PrintStringLoop
-    ld hl,Part2+1
-    ld a,(hl)
-    inc a
-    and %111
-    cp 0
-    jp nz,ColorOkay
-    ld a,1
-ColorOkay:
-    ld (hl),a
-    pop hl
-    ret
-
-PrintStringLoop:
-    ld a,(hl)
-    cp 0
-    ret z
-    inc hl
-    rst $10
-    jr PrintStringLoop
-
-Message:
-Part1:
-    db $10,$05,$11,$01,'Retro'
-Part2:
-    db $10,$01,$11,$05,'arch'
-Part3:
-    db $10,$02,$11,$04," is still awesome.."
-    db 13,0
 
 TestSprite:
     incbin build/test.bin
