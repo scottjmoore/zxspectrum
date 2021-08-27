@@ -7,16 +7,15 @@ SCREENSEG2      equ $5000
 
 BUFFERWIDTH     equ 32
 BUFFERHEIGHT    equ 24
-BUFFERPAD       equ 2
+BUFFERPAD       equ 0
 BUFFERLINESIZE  equ (BUFFERWIDTH + (BUFFERPAD << 1))
 BUFFERSIZE      equ (BUFFERLINESIZE * (BUFFERHEIGHT + (BUFFERPAD << 1)) << 3)
-BUFFERSTART     equ Buffer + BUFFERPAD + ((BUFFERLINESIZE * BUFFERPAD) << 3)
+BUFFERSTART     equ BUFFER + BUFFERPAD + ((BUFFERLINESIZE * BUFFERPAD) << 3)
+
+BUFFER          equ $e700
 
     org $8000
     jp Start
-
-Buffer:
-    blk (BUFFERWIDTH + (BUFFERPAD << 1)) * (BUFFERHEIGHT + (BUFFERPAD << 1)) << 3,$55
 
 StackPointer:
     dw 0
@@ -756,6 +755,7 @@ DontMoveCharacter:
     ld hl,BUFFERSTART + ((BUFFERLINESIZE << 3) * (BUFFERHEIGHT))
     ld b,BUFFERSIZE >> 5
     or a
+
 ScrollLoop:
     rl (hl)
     dec hl
